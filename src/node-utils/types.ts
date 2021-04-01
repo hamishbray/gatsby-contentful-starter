@@ -1,30 +1,24 @@
-export type Fields = {
-	slug: string
-}
-
-export type KontentItem<T> = {
-	fields: Fields
-	elements: T
+export type ContentfulItem<T> = T & {
 	id: string
-	system?: {
+	internal?: {
 		type: string
 	}
 }
 
-type AllKontentItem<T, U extends string> = {
+type AllContentfulItem<T, U extends string> = {
 	[u in U]: {
-		nodes: KontentItem<T>[]
+		nodes: ContentfulItem<T>[]
 	}
 }
 
-export type KontentResult<T, N extends string> = {
+export type ContentfulResult<T, N extends string> = {
 	errors?: any
 	data?: {
-		[n in N]: KontentItem<T>
+		[n in N]: ContentfulItem<T>
 	}
 }
 
-export type AllKontentResult<T, U extends string> = {
+export type AllContentfulResult<T, U extends string> = {
 	errors?: any
-	data?: AllKontentItem<T, U>
+	data?: AllContentfulItem<T, U>
 }
