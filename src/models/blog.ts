@@ -1,6 +1,6 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 
-type BodyCopy = {
+type Copy = {
 	childMarkdownRemark: {
 		html: string
 	}
@@ -13,10 +13,12 @@ type Author = {
 
 export interface BlogItem {
 	author: Author
-	body?: BodyCopy
+	body?: Copy
+	description?: Copy
 	heroImage?: IGatsbyImageData
 	publishDate: string
 	slug: string
 	tags?: string[]
 	title: string
+	updatedAt: string
 }

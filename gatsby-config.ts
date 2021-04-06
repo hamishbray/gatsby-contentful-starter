@@ -36,6 +36,7 @@ const queries = [
 						}
 						objectID: id
 						published: publishDate
+						slug
 						tags
 						title
 						modified: updatedAt
@@ -52,6 +53,7 @@ const queries = [
 				node.content = node.body?.childMarkdownRemark.html
 				node.summary = node.description?.childMarkdownRemark.html
 				node.image = node.heroImage?.file.url
+				node.url = `/blog/${node.slug}`
 				return node
 			}),
 	},
