@@ -6,9 +6,17 @@ type BodyCopy = {
 	}
 }
 
+type Author = {
+	name: string
+	image: IGatsbyImageData
+}
+
 export interface BlogItem {
+	author: Author
 	body?: BodyCopy
-	slug: string
-	title: string
 	heroImage?: IGatsbyImageData
+	publishDate: string
+	slug: string
+	tags?: string[]
+	title: string
 }
