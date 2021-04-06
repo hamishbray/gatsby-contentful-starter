@@ -12,11 +12,9 @@ interface Props {
 const Layout = ({ children }: Props) => {
 	const data = useStaticQuery(graphql`
 		query SiteTitleQuery {
-			allSite {
-				nodes {
-					siteMetadata {
-						title
-					}
+			site {
+				siteMetadata {
+					title
 				}
 			}
 		}
@@ -24,7 +22,7 @@ const Layout = ({ children }: Props) => {
 
 	return (
 		<>
-			<Header siteTitle={data.allSite.nodes.siteMetadata?.title || `Title`} />
+			<Header siteTitle={data.site.siteMetadata?.title || ``} />
 			<div className="box-border max-w-screen-lg px-4 py-8 mx-auto">
 				<main>{children}</main>
 				<footer className="mt-8">© {new Date().getFullYear()}</footer>
