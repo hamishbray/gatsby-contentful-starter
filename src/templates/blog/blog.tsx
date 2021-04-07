@@ -18,7 +18,7 @@ const BlogPage: React.FC<Props> = ({ data }: Props) => {
 		title,
 	} = data?.blogItem ?? ({} as BlogItem)
 
-	const pageImage = heroImage && getImage(heroImage)
+	const pageImage = getImage(heroImage)
 	const authorImage = getImage(image)
 
 	return (
@@ -42,7 +42,7 @@ const BlogPage: React.FC<Props> = ({ data }: Props) => {
 					)}
 					<div
 						dangerouslySetInnerHTML={{
-							__html: body?.childMarkdownRemark.html ?? '',
+							__html: body.childMarkdownRemark.html,
 						}}
 					></div>
 					{authorImage && (

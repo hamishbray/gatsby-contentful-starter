@@ -13,7 +13,7 @@ const IndexPage: React.FC = () => {
 			<div className="mb-8">
 				<SearchBox />
 			</div>
-			<Link to="/blogs/">Blogs</Link>
+			<Link to="/blog/">Blogs</Link>
 		</Layout>
 	)
 }

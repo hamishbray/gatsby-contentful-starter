@@ -13,9 +13,9 @@ type Author = {
 
 export interface BlogItem {
 	author: Author
-	body?: Copy
-	description?: Copy
-	heroImage?: IGatsbyImageData
+	body: Copy
+	description: Copy
+	heroImage: IGatsbyImageData
 	publishDate: string
 	slug: string
 	tags?: string[]
