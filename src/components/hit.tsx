@@ -17,11 +17,12 @@ type Props = {
 		url: string
 		heroImage: SearchImage
 		tags?: string[]
+		type: string
 	}>
 }
 
 const HitResult: React.FC<Props> = ({
-	hit: { summary, title, url, heroImage, tags },
+	hit: { summary, title, url, heroImage, tags, type },
 }: Props) => {
 	const image = getImage(heroImage.gatsbyImageData)
 
@@ -52,6 +53,9 @@ const HitResult: React.FC<Props> = ({
 					))}
 				</div>
 			)}
+			<div className="mt-4">
+				type: <span className="italic">{type}</span>
+			</div>
 		</Link>
 	)
 }

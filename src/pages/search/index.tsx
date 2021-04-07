@@ -71,6 +71,9 @@ const SearchPage: React.FC = () => {
 				<div className="flex">
 					<div className="pr-8 mt-8">
 						<h3>Refine</h3>
+						<h5>Type</h5>
+						<RefinementList attribute="type" />
+						<h5>Tags</h5>
 						<RefinementList attribute="tags" />
 					</div>
 					<div className="flex-grow">
