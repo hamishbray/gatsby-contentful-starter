@@ -26,19 +26,22 @@ const HitResult: React.FC<Props> = ({
 	const image = getImage(heroImage.gatsbyImageData)
 
 	return (
-		<Link to={url} className="self-start px-6 pt-2 pb-6 hover:no-underline">
+		<Link
+			to={url}
+			className="flex flex-col self-start h-full px-6 pt-2 pb-6 hover:no-underline"
+		>
 			<h3 className="hover:underline">{title}</h3>
 			{image && (
-				<div className="mb-4">
+				<div className="mb-2">
 					<GatsbyImage alt={title} image={image} />
 				</div>
 			)}
 			<div
-				className="mb-4"
+				className="flex-1 mb-3"
 				dangerouslySetInnerHTML={{ __html: summary ?? '' }}
 			></div>
 			{tags && (
-				<div className="flex mt-4">
+				<div className="flex">
 					{tags.map((tag, index) => (
 						<span
 							key={index}

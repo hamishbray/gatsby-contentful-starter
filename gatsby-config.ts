@@ -32,7 +32,7 @@ const queries = [
 							file {
 								url
 							}
-							gatsbyImageData(width: 250)
+							gatsbyImageData(width: 225, height: 150)
 						}
 						objectID: id
 						published: publishDate
