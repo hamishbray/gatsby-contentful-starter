@@ -18,7 +18,6 @@ const BlogLandingPage: React.FC<Props> = ({ data }: Props) => {
 			<div className="grid gap-8 md:grid-cols-3 sm:grid-cols-1 sm:gap-4">
 				{posts?.map(({ description, heroImage, title, slug }, index) => {
 					const image = getImage(heroImage)
-
 					return (
 						<Link key={index} to={`/blog/${slug}`}>
 							<div className="px-4 pb-4 shadow">
@@ -50,7 +49,7 @@ export const query = graphql`
 					}
 				}
 				heroImage {
-					gatsbyImageData(width: 225, height: 150)
+					gatsbyImageData(width: 288, height: 192)
 				}
 				slug
 				title
