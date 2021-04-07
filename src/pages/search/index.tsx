@@ -68,7 +68,7 @@ const SearchPage: React.FC = () => {
 			>
 				<Configure hitsPerPage={6} />
 				<SearchBox />
-				<div className="flex">
+				<div className="flex flex-wrap md:flex-nowrap">
 					<div className="pr-8 mt-8">
 						<h3>Refine</h3>
 						<h5>Type</h5>
