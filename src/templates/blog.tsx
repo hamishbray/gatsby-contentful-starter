@@ -2,9 +2,9 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
-import Layout from '../../components/layout'
-import { BlogItem } from '../../models/blog'
-import { ContentfulResult } from '../../node-utils/types'
+import Layout from '../components/layout'
+import { BlogItem } from '../models/blog'
+import { ContentfulResult } from '../node-utils/types'
 
 type Props = ContentfulResult<BlogItem, 'blogItem'>
 

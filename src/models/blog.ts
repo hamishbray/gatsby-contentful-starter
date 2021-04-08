@@ -1,10 +1,5 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
-
-type Copy = {
-	childMarkdownRemark: {
-		html: string
-	}
-}
+import { Copy } from './common'
 
 type Author = {
 	name: string

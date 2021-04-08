@@ -23,7 +23,8 @@
 		@apply mb-2;
 	}
 
-	p > a {
+	p > a,
+	div > a {
 		@apply underline;
 	}
 

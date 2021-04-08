@@ -29,7 +29,7 @@ export const createBlogPages = async (
 	result.data?.allBlogs.nodes.forEach(blog => {
 		createPage({
 			path: `/blog/${blog.slug}`,
-			component: resolve(`src/templates/blog/blog.tsx`),
+			component: resolve(`src/templates/blog.tsx`),
 			context: {
 				...blog,
 			},
