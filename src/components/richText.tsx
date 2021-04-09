@@ -14,6 +14,19 @@ import {
 	RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text'
 
+const getType = (typeName: string): string => {
+	switch (typeName) {
+		case 'ContentfulArticle':
+			return 'article'
+		case 'ContentfulBlogPost':
+			return 'blog'
+		case 'ContentfulPerson':
+			return 'person'
+		default:
+			return ''
+	}
+}
+
 const Bold = ({ children }: { children: ReactNode }) => (
 	<span className="font-bold">{children}</span>
 )
@@ -25,7 +38,11 @@ const Code = ({ children }: { children: ReactNode }) => (
 )
 
 const EmbeddedEntry = ({ node }: { node: Inline | Block }) => (
-	<Link to={`/article/${node.data.target.slug}`}>{node.data.target.title}</Link>
+	<Link
+		to={`/${getType(node.data.target.__typename)}/${node.data.target.slug}`}
+	>
+		{node.data.target.title}
+	</Link>
 )
 
 const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
