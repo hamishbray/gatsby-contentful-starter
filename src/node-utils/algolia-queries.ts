@@ -1,7 +1,51 @@
+import { AllContentfulResult } from './types'
+import { ArticleItem } from '../models/article'
+import { BlogItem } from '../models/blog'
+import { PersonItem } from '../models/person'
+
+const articleQuery = {
+	query: `
+		{
+			allArticles: allContentfulArticle {
+				nodes {
+					objectID: id
+					published: postDate
+					slug
+					summary {
+						childMarkdownRemark {
+							html
+						}
+					}
+					image: teaserImage {
+						file {
+							url
+						}
+						gatsbyImageData(width: 225, height: 150)
+					}
+					title
+					modified: updatedAt
+				}
+			}
+		}
+	`,
+	settings: {
+		searchableAttributes: ['title', 'content', 'summary'],
+		attributesForFaceting: ['type'],
+	},
+	transformer: ({ data }: AllContentfulResult<ArticleItem, 'allArticles'>) =>
+		data?.allArticles.nodes.map((node: any) => {
+			node.summary = node.summary?.childMarkdownRemark.html
+			node.thumbnail = node.image?.file.url
+			node.url = `/article/${node.slug}`
+			node.type = 'Article'
+			return node
+		}),
+}
+
 const blogQuery = {
 	query: `
 		{
-			allContentfulBlogPost {
+			allBlogs: allContentfulBlogPost {
 				nodes {
 					body {
 						childMarkdownRemark {
@@ -13,7 +57,7 @@ const blogQuery = {
 							html
 						}
 					}
-					heroImage {
+					image: heroImage {
 						file {
 							url
 						}
@@ -33,11 +77,11 @@ const blogQuery = {
 		searchableAttributes: ['title', 'content', 'summary', 'tags'],
 		attributesForFaceting: ['tags', 'type'],
 	},
-	transformer: ({ data }: { data: any }) =>
-		data.allContentfulBlogPost.nodes.map((node: any) => {
+	transformer: ({ data }: AllContentfulResult<BlogItem, 'allBlogs'>) =>
+		data?.allBlogs.nodes.map((node: any) => {
 			node.content = node.body?.childMarkdownRemark.html
 			node.summary = node.description?.childMarkdownRemark.html
-			node.image = node.heroImage?.file.url
+			node.thumbnail = node.image?.file.url
 			node.url = `/blog/${node.slug}`
 			node.type = 'Blog Post'
 			return node
@@ -47,7 +91,7 @@ const blogQuery = {
 const personQuery = {
 	query: `
 		{
-			allContentfulPerson {
+			allPeople: allContentfulPerson {
 				nodes {
 					published: createdAt
 					modified: updatedAt
@@ -58,7 +102,7 @@ const personQuery = {
 						}
 					}
 					objectID: id
-					heroImage: image {
+					image {
 						file {
 							url
 						}
@@ -73,14 +117,14 @@ const personQuery = {
 		searchableAttributes: ['title', 'summary'],
 		attributesForFaceting: ['type'],
 	},
-	transformer: ({ data }: { data: any }) =>
-		data.allContentfulPerson.nodes.map((node: any) => {
+	transformer: ({ data }: AllContentfulResult<PersonItem, 'allPeople'>) =>
+		data?.allPeople.nodes.map((node: any) => {
 			node.summary = node.shortBio?.childMarkdownRemark.html
-			node.image = node.heroImage?.file.url
+			node.thumbnail = node.image?.file.url
 			node.url = `/person/${node.slug}`
 			node.type = 'Person'
 			return node
 		}),
 }
 
-export const queries = [blogQuery, personQuery]
+export const queries = [articleQuery, blogQuery, personQuery]
