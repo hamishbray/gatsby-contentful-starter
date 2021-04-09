@@ -19,7 +19,9 @@ const Bold = ({ children }: { children: ReactNode }) => (
 )
 
 const Code = ({ children }: { children: ReactNode }) => (
-	<pre className="my-2">{children}</pre>
+	<pre className="my-2">
+		<code>{children}</code>
+	</pre>
 )
 
 const EmbeddedEntry = ({ node }: { node: Inline | Block }) => (
