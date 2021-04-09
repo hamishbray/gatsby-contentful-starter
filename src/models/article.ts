@@ -15,5 +15,5 @@ export interface ArticleItem extends ContentfulRichTextGatsbyReference {
 	teaserImage: IGatsbyImageData
 	title: string
 	updatedAt: string
-	__typename: 'Article'
+	__typename: 'ContentfulArticle'
 }

@@ -39,15 +39,16 @@ export const query = graphql`
 				raw
 				references {
 					... on ContentfulArticle {
+						__typename
 						contentful_id
-						id
 						title
 						slug
 					}
 					... on ContentfulAsset {
+						__typename
 						contentful_id
-						id
-						gatsbyImageData(layout: FIXED)
+						description
+						gatsbyImageData(layout: CONSTRAINED)
 					}
 				}
 			}

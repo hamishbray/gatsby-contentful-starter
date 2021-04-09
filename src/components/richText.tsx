@@ -1,14 +1,13 @@
 import React, { ReactNode } from 'react'
 import { Link } from 'gatsby'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import {
 	Block,
 	Inline,
-	Text,
 	BLOCKS,
 	INLINES,
 	MARKS,
 } from '@contentful/rich-text-types'
-import { NodeRenderer } from '@contentful/rich-text-react-renderer'
 import {
 	renderRichText,
 	ContentfulRichTextGatsbyReference,
@@ -19,54 +18,39 @@ const Bold = ({ children }: { children: ReactNode }) => (
 	<span className="font-bold">{children}</span>
 )
 
+const Code = ({ children }: { children: ReactNode }) => (
+	<pre className="my-2">{children}</pre>
+)
+
+const EmbeddedEntry = ({ node }: { node: Inline | Block }) => (
+	<Link to={`/article/${node.data.target.slug}`}>{node.data.target.title}</Link>
+)
+
+const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
+	const { contentful_id, description, gatsbyImageData } = node.data.target
+	const image = getImage(gatsbyImageData)
+	return image ? (
+		<GatsbyImage
+			className="my-8"
+			alt={description || contentful_id}
+			image={image}
+		/>
+	) : null
+}
+
 const options = {
 	renderMark: {
 		[MARKS.BOLD]: (text: ReactNode) => <Bold>{text}</Bold>,
+		[MARKS.CODE]: (text: ReactNode) => <Code>{text}</Code>,
 	},
 	renderNode: {
-		[BLOCKS.PARAGRAPH]: (node: Inline | Block) => (
-			<div className="mb-2">{node.content.map(getTextNode)}</div>
-		),
 		[INLINES.EMBEDDED_ENTRY]: (node: Inline | Block) => (
-			<Link to={`/article/${node.data.target.slug}`}>
-				{node.data.target.title}
-			</Link>
+			<EmbeddedEntry node={node} />
 		),
-		// [BLOCKS.EMBEDDED_ASSET]: (node: Inline | Block) => {
-
-		// },
+		[BLOCKS.EMBEDDED_ASSET]: (node: Inline | Block) => (
+			<EmbeddedAsset node={node} />
+		),
 	},
-}
-
-const getTextNode = (node: Inline | Block | Text, index: number) => {
-	switch (node.nodeType) {
-		case INLINES.HYPERLINK:
-			return (
-				<a key={index} href={node.data.uri}>
-					{(node.content[0] as Text).value}
-				</a>
-			)
-		case INLINES.EMBEDDED_ENTRY:
-			return (
-				<Link key={index} to={`/article/${node.data.target.slug}`}>
-					{node.data.target.title}
-				</Link>
-			)
-		case 'text':
-			if (node.marks.length > 0) {
-				switch (node.marks[0].type) {
-					case 'code':
-						return (
-							<pre key={index} className="my-2">
-								<code>{node.value}</code>
-							</pre>
-						)
-				}
-			} else {
-				return <span key={index}>{node.value}</span>
-			}
-	}
-	return ''
 }
 
 export function getRichText<T extends ContentfulRichTextGatsbyReference>(
