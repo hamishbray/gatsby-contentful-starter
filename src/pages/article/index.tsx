@@ -4,6 +4,8 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 import Layout from '../../components/layout'
 import SEO from '../../components/seo'
+import Cards from '../../components/cards'
+
 import { AllContentfulResult } from '../../node-utils/types'
 import { ArticleItem } from '../../models/article'
 
@@ -15,24 +17,7 @@ const ArticleLandingPage: React.FC<Props> = ({ data }: Props) => {
 		<Layout>
 			<SEO title="Articles" />
 			<h1>Articles</h1>
-			<div className="grid gap-8 md:grid-cols-3 sm:grid-cols-1 sm:gap-4">
-				{articles?.map(({ summary, teaserImage, title, slug }, index) => {
-					const image = getImage(teaserImage)
-					return (
-						<Link key={index} to={`/article/${slug}`}>
-							<div className="px-4 pb-4 shadow">
-								<h4>{title}</h4>
-								{image && <GatsbyImage alt={title} image={image} />}
-								<div
-									dangerouslySetInnerHTML={{
-										__html: summary.childMarkdownRemark.html,
-									}}
-								></div>
-							</div>
-						</Link>
-					)
-				})}
-			</div>
+			<Cards cards={articles} />
 		</Layout>
 	)
 }
@@ -53,6 +38,7 @@ export const query = graphql`
 				}
 				slug
 				title
+				__typename
 			}
 		}
 	}

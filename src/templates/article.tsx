@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { ArticleItem } from '../models/article'
 import { ContentfulResult } from '../node-utils/types'
 
+import Cards from '../components/cards'
 import Layout from '../components/layout'
 import { getRichText } from '../components/richText'
 
@@ -27,6 +28,12 @@ const ArticlePage: React.FC<Props> = ({ data }: Props) => {
 					<p className="mt-6 italic">Posted: {postDate}</p>
 					{getRichText(bodyCopy)}
 				</div>
+				{relatedArticles && (
+					<>
+						<h2>Related Articles</h2>
+						<Cards cards={relatedArticles} />
+					</>
+				)}
 			</div>
 		</Layout>
 	)
@@ -67,6 +74,7 @@ export const query = graphql`
 						html
 					}
 				}
+				__typename
 			}
 			slug
 			summary {

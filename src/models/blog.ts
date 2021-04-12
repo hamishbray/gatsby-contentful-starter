@@ -16,4 +16,5 @@ export interface BlogItem {
 	tags?: string[]
 	title: string
 	updatedAt: string
+	__typename: 'ContentfulBlogPost'
 }
