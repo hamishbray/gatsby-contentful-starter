@@ -15,6 +15,9 @@ export type Copy = {
 	}
 }
 
+// used as umbrella type for all item types
+export type GenericItem = ArticleItem | BlogItem
+
 export interface Item extends ContentfulRichTextGatsbyReference {
 	id: string
 	slug: string
@@ -29,10 +32,8 @@ export interface Asset extends ContentfulRichTextGatsbyReference {
 	gatsbyImageData: IGatsbyImageData | null
 }
 
-export const isArticleItem = (
-	item: ArticleItem | BlogItem
-): item is ArticleItem =>
+export const isArticleItem = (item: GenericItem): item is ArticleItem =>
 	(item as ArticleItem).__typename === 'ContentfulArticle'
 
-export const isBlogItem = (item: ArticleItem | BlogItem): item is BlogItem =>
+export const isBlogItem = (item: GenericItem): item is BlogItem =>
 	(item as BlogItem).__typename === 'ContentfulBlogPost'

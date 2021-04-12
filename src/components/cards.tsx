@@ -2,17 +2,15 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
-import { ArticleItem } from '../models/article'
-import { BlogItem } from '../models/blog'
-import { isArticleItem, isBlogItem } from '../models/common'
+import { GenericItem, isArticleItem, isBlogItem } from '../models/common'
 
 type Props = {
-	cards: ArticleItem[] | BlogItem[]
+	cards: GenericItem[]
 }
 
 const Cards: React.FC<Props> = ({ cards }: Props) => (
 	<div className="grid gap-8 md:grid-cols-3 sm:grid-cols-1 sm:gap-4">
-		{cards?.map((card: ArticleItem | BlogItem, index: number) => {
+		{cards?.map((card: GenericItem, index: number) => {
 			let image, summary, type
 
 			if (isArticleItem(card)) {
