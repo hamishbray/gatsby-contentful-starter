@@ -3,7 +3,7 @@ import { RenderRichTextData } from 'gatsby-source-contentful/rich-text'
 import { Asset, Copy, Item } from './common'
 
 export interface ArticleItem extends Item {
-	bodyCopy: RenderRichTextData<ArticleItem | Asset>
+	bodyCopy: RenderRichTextData<Item | Asset>
 	postDate: string
 	relatedArticles: ArticleItem[]
 	summary: Copy
