@@ -14,6 +14,14 @@ export type Copy = {
 		html: string
 	}
 }
+
+export interface Item extends ContentfulRichTextGatsbyReference {
+	id: string
+	slug: string
+	title: string
+	updatedAt: string
+}
+
 export interface Asset extends ContentfulRichTextGatsbyReference {
 	id: string
 	description: string

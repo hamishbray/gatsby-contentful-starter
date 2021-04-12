@@ -13,7 +13,7 @@ import {
 	ContentfulRichTextGatsbyReference,
 	RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text'
-import { Asset } from '../models/common'
+import { Asset, Item } from '../models/common'
 
 const getType = (typeName: string): string => {
 	switch (typeName) {
@@ -38,13 +38,11 @@ const Code = ({ children }: { children: ReactNode }) => (
 	</pre>
 )
 
-const EmbeddedEntry = ({ node }: { node: Inline | Block }) => (
-	<Link
-		to={`/${getType(node.data.target.__typename)}/${node.data.target.slug}`}
-	>
-		{node.data.target.title}
-	</Link>
-)
+const EmbeddedEntry = ({ node }: { node: Inline | Block }) => {
+	const { __typename, slug, title }: Item = node.data.target
+
+	return <Link to={`/${getType(__typename)}/${slug}`}>{title}</Link>
+}
 
 const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
 	const {
