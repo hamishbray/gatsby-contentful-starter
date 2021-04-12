@@ -3,15 +3,21 @@ import { ContentfulRichTextGatsbyReference } from 'gatsby-source-contentful/rich
 import { ArticleItem } from './article'
 import { BlogItem } from './blog'
 
-export interface Asset extends ContentfulRichTextGatsbyReference {
-	id: string
-	gatsbyImageData: IGatsbyImageData
+export type AssetFile = {
+	contentType: string
+	url: string
+	fileName: string
 }
 
 export type Copy = {
 	childMarkdownRemark: {
 		html: string
 	}
+}
+export interface Asset extends ContentfulRichTextGatsbyReference {
+	id: string
+	file: AssetFile
+	gatsbyImageData: IGatsbyImageData | null
 }
 
 export const isArticleItem = (

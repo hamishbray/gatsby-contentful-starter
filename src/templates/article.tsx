@@ -57,6 +57,11 @@ export const query = graphql`
 						__typename
 						contentful_id
 						description
+						file {
+							contentType
+							url
+							fileName
+						}
 						gatsbyImageData(layout: CONSTRAINED)
 					}
 				}

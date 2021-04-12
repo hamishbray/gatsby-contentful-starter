@@ -46,15 +46,22 @@ const EmbeddedEntry = ({ node }: { node: Inline | Block }) => (
 )
 
 const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
-	const { contentful_id, description, gatsbyImageData } = node.data.target
-	const image = getImage(gatsbyImageData)
+	const { contentful_id, description, file, gatsbyImageData } = node.data.target
+
+	const image = gatsbyImageData && getImage(gatsbyImageData)
 	return image ? (
 		<GatsbyImage
 			className="my-8"
 			alt={description || contentful_id}
 			image={image}
 		/>
-	) : null
+	) : (
+		<p>
+			<a href={file.url} target="_blank">
+				{file.fileName}
+			</a>
+		</p>
+	)
 }
 
 const options = {
