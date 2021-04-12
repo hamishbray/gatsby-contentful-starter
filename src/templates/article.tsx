@@ -28,7 +28,7 @@ const ArticlePage: React.FC<Props> = ({ data }: Props) => {
 					<p className="mt-6 italic">Posted: {postDate}</p>
 					{getRichText(bodyCopy)}
 				</section>
-				{relatedArticles && (
+				{relatedArticles.length > 0 && (
 					<section className="mt-8">
 						<h2>Related Articles</h2>
 						<Cards cards={relatedArticles} />

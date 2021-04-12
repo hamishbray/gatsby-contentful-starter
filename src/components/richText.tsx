@@ -69,6 +69,9 @@ const options = {
 		[BLOCKS.EMBEDDED_ASSET]: (node: Inline | Block) => (
 			<EmbeddedAsset node={node} />
 		),
+		[BLOCKS.EMBEDDED_ENTRY]: (node: Block | Inline) => (
+			<EmbeddedEntry node={node} />
+		),
 	},
 }
 
