@@ -16,6 +16,7 @@ export type Copy = {
 }
 export interface Asset extends ContentfulRichTextGatsbyReference {
 	id: string
+	description: string
 	file: AssetFile
 	gatsbyImageData: IGatsbyImageData | null
 }

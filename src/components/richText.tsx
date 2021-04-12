@@ -13,6 +13,7 @@ import {
 	ContentfulRichTextGatsbyReference,
 	RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text'
+import { Asset } from '../models/common'
 
 const getType = (typeName: string): string => {
 	switch (typeName) {
@@ -46,9 +47,15 @@ const EmbeddedEntry = ({ node }: { node: Inline | Block }) => (
 )
 
 const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
-	const { contentful_id, description, file, gatsbyImageData } = node.data.target
+	const {
+		contentful_id,
+		description,
+		file: { url, fileName },
+		gatsbyImageData,
+	}: Asset = node.data.target
 
 	const image = gatsbyImageData && getImage(gatsbyImageData)
+
 	return image ? (
 		<GatsbyImage
 			className="my-8"
@@ -57,8 +64,8 @@ const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
 		/>
 	) : (
 		<p>
-			<a href={file.url} target="_blank">
-				{file.fileName}
+			<a href={url} target="_blank">
+				{fileName}
 			</a>
 		</p>
 	)
@@ -82,8 +89,6 @@ const options = {
 	},
 }
 
-export function getRichText<T extends ContentfulRichTextGatsbyReference>(
+export const getRichText = <T extends ContentfulRichTextGatsbyReference>(
 	bodyCopy: RenderRichTextData<T>
-): ReactNode {
-	return renderRichText(bodyCopy, options)
-}
+): ReactNode => renderRichText(bodyCopy, options)
