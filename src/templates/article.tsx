@@ -21,7 +21,9 @@ const ArticlePage: React.FC<Props> = ({ data }: Props) => {
 			<div className="blog-post">
 				<div>
 					<h1>{title}</h1>
-					{pageImage && <GatsbyImage alt={title} image={pageImage} />}
+					{pageImage && (
+						<GatsbyImage alt={title} image={pageImage} loading="eager" />
+					)}
 					<p className="mt-6 italic">Posted: {postDate}</p>
 					{getRichText(bodyCopy)}
 				</div>
