@@ -3,6 +3,10 @@ import { ContentfulRichTextGatsbyReference } from 'gatsby-source-contentful/rich
 import { ArticleItem } from './article'
 import { BlogItem } from './blog'
 
+export const CONTENTFUL_ARTICLE_TYPENAME = 'ContentfulArticle'
+export const CONTENTFUL_BLOGPOST_TYPENAME = 'ContentfulBlogPost'
+export const CONTENTFUL_PERSON_TYPENAME = 'ContentfulPerson'
+
 export type AssetFile = {
 	contentType: string
 	url: string
@@ -33,7 +37,20 @@ export interface Asset extends ContentfulRichTextGatsbyReference {
 }
 
 export const isArticleItem = (item: GenericItem): item is ArticleItem =>
-	(item as ArticleItem).__typename === 'ContentfulArticle'
+	(item as ArticleItem).__typename === CONTENTFUL_ARTICLE_TYPENAME
 
 export const isBlogItem = (item: GenericItem): item is BlogItem =>
-	(item as BlogItem).__typename === 'ContentfulBlogPost'
+	(item as BlogItem).__typename === CONTENTFUL_BLOGPOST_TYPENAME
+
+export const getType = (typeName: string): string => {
+	switch (typeName) {
+		case CONTENTFUL_ARTICLE_TYPENAME:
+			return 'article'
+		case CONTENTFUL_BLOGPOST_TYPENAME:
+			return 'blog'
+		case CONTENTFUL_PERSON_TYPENAME:
+			return 'person'
+		default:
+			return ''
+	}
+}

@@ -13,20 +13,7 @@ import {
 	ContentfulRichTextGatsbyReference,
 	RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text'
-import { Asset, Item } from '../models/common'
-
-const getType = (typeName: string): string => {
-	switch (typeName) {
-		case 'ContentfulArticle':
-			return 'article'
-		case 'ContentfulBlogPost':
-			return 'blog'
-		case 'ContentfulPerson':
-			return 'person'
-		default:
-			return ''
-	}
-}
+import { getType, Asset, Item } from '../models/common'
 
 const Bold = ({ children }: { children: ReactNode }) => (
 	<span className="font-bold">{children}</span>
