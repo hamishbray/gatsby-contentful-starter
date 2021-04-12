@@ -20,19 +20,19 @@ const ArticlePage: React.FC<Props> = ({ data }: Props) => {
 	return (
 		<Layout>
 			<div className="blog-post">
-				<div>
+				<section>
 					<h1>{title}</h1>
 					{pageImage && (
 						<GatsbyImage alt={title} image={pageImage} loading="eager" />
 					)}
 					<p className="mt-6 italic">Posted: {postDate}</p>
 					{getRichText(bodyCopy)}
-				</div>
+				</section>
 				{relatedArticles && (
-					<>
+					<section className="mt-8">
 						<h2>Related Articles</h2>
 						<Cards cards={relatedArticles} />
-					</>
+					</section>
 				)}
 			</div>
 		</Layout>
@@ -66,7 +66,7 @@ export const query = graphql`
 			relatedArticles {
 				title
 				teaserImage {
-					gatsbyImageData(width: 225, height: 150)
+					gatsbyImageData(width: 288, height: 192)
 				}
 				slug
 				summary {

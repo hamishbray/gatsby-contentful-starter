@@ -24,7 +24,7 @@ const BlogPage: React.FC<Props> = ({ data }: Props) => {
 	return (
 		<Layout>
 			<div className="blog-post">
-				<div>
+				<section>
 					<h1>{title}</h1>
 					{pageImage && (
 						<GatsbyImage alt={title} image={pageImage} loading="eager" />
@@ -53,7 +53,7 @@ const BlogPage: React.FC<Props> = ({ data }: Props) => {
 							<p>{name}</p>
 						</div>
 					)}
-				</div>
+				</section>
 			</div>
 		</Layout>
 	)
