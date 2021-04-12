@@ -1,7 +1,7 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
-import { Copy } from './common'
+import { Copy, Item } from './common'
 
-export interface PersonItem {
+export interface PersonItem extends Item {
 	createdAt: string
 	email: string
 	facebook: string
@@ -9,8 +9,6 @@ export interface PersonItem {
 	image: IGatsbyImageData
 	name: string
 	shortBio: Copy
-	slug: string
-	title: string
 	twitter: string
-	updatedAt: string
+	__typename: 'ContentfulPerson'
 }
