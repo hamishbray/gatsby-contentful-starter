@@ -67,7 +67,7 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby clean && gatsby build && netlify-lambda build src/functions",
+    "build": "gatsby build && netlify-lambda build src/functions",
     "build:app": "npm run clean && gatsby build",
     "build:lambda": "netlify-lambda build src/functions",
     "develop": "gatsby clean && gatsby develop",
