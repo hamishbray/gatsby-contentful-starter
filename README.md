@@ -6,6 +6,4 @@
 <h1 align="center">
   Gatsby's default starter with Contentful source
 </h1>
-<p>
-	[![Netlify Status](https://api.netlify.com/api/v1/badges/547b8f0f-9c9d-4c7c-92a8-79fdec1644e3/deploy-status)](https://app.netlify.com/sites/gatsby-contentful-algolia/deploys)
-</p>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/547b8f0f-9c9d-4c7c-92a8-79fdec1644e3/deploy-status)](https://app.netlify.com/sites/gatsby-contentful-algolia/deploys)
