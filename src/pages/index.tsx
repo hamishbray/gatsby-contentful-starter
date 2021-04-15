@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
@@ -6,6 +6,15 @@ import SEO from '../components/seo'
 import SearchBox from '../components/searchBox'
 
 const IndexPage: React.FC = () => {
+	useEffect(() => {
+		const SayHello = async () => {
+			const response = await fetch('/.netlify/functions/hello')
+			const message = await response.json()
+			console.log(message)
+		}
+		SayHello()
+	}, [])
+
 	return (
 		<Layout>
 			<SEO title="Home" />

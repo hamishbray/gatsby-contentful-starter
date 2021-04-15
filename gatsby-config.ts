@@ -2,7 +2,21 @@ require('dotenv').config({
 	path: `.env.${process.env.NODE_ENV}`,
 })
 
+import { createProxyMiddleware } from 'http-proxy-middleware'
+
 import { queries } from './src/node-utils/algolia-queries'
+
+export const developMiddleware = (app: any) => {
+	app.use(
+		'/.netlify/functions/',
+		createProxyMiddleware({
+			target: 'http://localhost:9000',
+			pathRewrite: {
+				'/.netlify/functions/': '',
+			},
+		})
+	)
+}
 
 export const siteMetadata = {
 	title: 'Gatsby Contentful POC',

@@ -1,11 +1,13 @@
 {
-  "name": "gatsby-kontent-starter",
+  "name": "gatsby-contentful-starter",
   "private": true,
-  "description": "A simple Gatsby starter with Kentico Kontent source",
+  "description": "A Gatsby starter with Contentful source",
   "version": "0.1.0",
   "author": "Hamish Bray <hamish.bray@gmail.com>",
   "dependencies": {
     "algoliasearch": "^4.8.6",
+    "contentful": "^8.2.1",
+    "contentful-management": "^7.15.0",
     "gatsby": "^3.2.0",
     "gatsby-plugin-algolia": "^0.18.0",
     "gatsby-plugin-image": "^1.2.0",
@@ -28,10 +30,13 @@
     "react-lite-yt-embed": "^1.2.6"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
     "@reach/dialog": "^0.14.0",
     "@reach/tabs": "^0.14.0",
     "@reach/visually-hidden": "^0.14.0",
     "@sindresorhus/slugify": "^1.1.0",
+    "@types/aws-lambda": "^8.10.75",
     "@types/node": "^14.14.35",
     "@types/qs": "^6.9.6",
     "@types/react": "^17.0.3",
@@ -44,6 +49,9 @@
     "contentful-import": "^8.0.3",
     "eslint": "^7.23.0",
     "gatsby-plugin-postcss": "^4.2.0",
+    "http-proxy-middleware": "^1.1.2",
+    "netlify-lambda": "^2.0.3",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.2.9",
     "prettier": "2.2.1",
     "tailwindcss": "^2.0.3",
@@ -52,23 +60,30 @@
   },
   "keywords": [
     "gatsby",
-    "kontent"
+    "contentful",
+    "algolia",
+    "netlify",
+    "lambda"
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "build": "gatsby clean && gatsby build && netlify-lambda build src/functions",
+    "build:app": "npm run clean && gatsby build",
+    "build:lambda": "netlify-lambda build src/functions",
+    "develop": "gatsby clean && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
+    "start": "run-p start:**",
+    "start:app": "npm run develop",
+    "start:lambda": "netlify-lambda serve src/functions",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hamishbray/gatsby-kontent-starter"
+    "url": "https://github.com/hamishbray/gatsby-contentful-starter"
   },
   "bugs": {
-    "url": "https://github.com/hamishbray/gatsby-kontent-starter/issues"
+    "url": "https://github.com/hamishbray/gatsby-contentful-starter/issues"
   }
 }
