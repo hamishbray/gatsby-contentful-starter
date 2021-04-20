@@ -10,7 +10,8 @@ export const handler: Handler = async (
 	context: HandlerContext
 ): Promise<HandlerResponse> => {
 	const { identity, user } = context.clientContext || {}
-	console.log(`user signed in:`, user)
+	console.log(`user signed in:`, JSON.stringify(event))
+	console.log(`user signed in - context:`, JSON.stringify(context))
 
 	return {
 		statusCode: 200,
