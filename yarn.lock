@@ -14345,6 +14345,11 @@ react-netlify-identity-widget@^0.1.3:
   dependencies:
     react-netlify-identity "^0.1.8"
 
+react-netlify-identity-widget@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/react-netlify-identity-widget/-/react-netlify-identity-widget-0.2.7.tgz#3cb40b122cd3b4cbf8f18a250b2cad471cd5e5cd"
+  integrity sha512-V3Bm1ftA6F8z4qDGDQ001t6EuVDuUYbkFmNePF27ai/qKIqIQAsu1iQZnx14bkEokXj4t2nBJcJmzRdNxp8CZQ==
+
 react-netlify-identity@^0.1.8:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/react-netlify-identity/-/react-netlify-identity-0.1.9.tgz#9a56de108632d41cb09e21f9d71fa439692b3971"
