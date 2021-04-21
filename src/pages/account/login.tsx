@@ -1,10 +1,11 @@
-import React, { useRef, FormEvent } from 'react'
+import React, { useRef, useState, FormEvent } from 'react'
 import { navigate } from '@reach/router'
 import { useIdentityContext } from 'react-netlify-identity'
 
 const Login: React.FC<any> = () => {
 	const { loginUser, logoutUser, signupUser } = useIdentityContext()
 	const formRef = useRef<HTMLFormElement>(null!)
+	const [error, setError] = useState(null)
 
 	const onSubmit = (event: FormEvent) => {
 		event.preventDefault()
@@ -14,12 +15,14 @@ const Login: React.FC<any> = () => {
 	const login = async () => {
 		const email = formRef.current.email.value
 		const password = formRef.current.password.value
+		setError(null)
 
 		try {
 			const user = await loginUser(email, password)
 			console.log('Success! Logged in user: ', user)
 			navigate('/account/profile')
 		} catch (error) {
+			setError(error.json?.error_description)
 			console.error('Error logging in user', error)
 		}
 	}
@@ -32,7 +35,7 @@ const Login: React.FC<any> = () => {
 					<input
 						type="email"
 						name="email"
-						className="block w-full mt-1 form-input"
+						className="block max-w-full mt-1 w-96 form-input"
 						placeholder="Enter your email"
 					/>
 				</label>
@@ -41,17 +44,22 @@ const Login: React.FC<any> = () => {
 					<input
 						type="password"
 						name="password"
-						className="block w-full mt-1 form-input"
+						className="block max-w-full mt-1 w-96 form-input"
 						placeholder="Enter your password"
 					></input>
 				</label>
 			</div>
 			<button
 				type="submit"
-				className="px-4 py-2 mt-4 border-2 border-black rounded  hover:border-gray-500 hover:text-black"
+				className="px-4 py-2 mt-4 border-2 border-black rounded hover:border-gray-500 hover:text-black"
 			>
 				Submit
 			</button>
+			{error && (
+				<div className="mt-2 text-red-700">
+					<span>{error}</span>
+				</div>
+			)}
 		</form>
 	)
 }
