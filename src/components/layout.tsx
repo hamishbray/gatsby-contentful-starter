@@ -9,7 +9,7 @@ import Header from './header'
 const netlifyIdentityUrl = process.env.NETLIFY_IDENTITY_URL ?? ''
 
 type Props = {
-	children: React.FC<any>
+	children: any
 }
 
 const Layout: React.FC<Props> = ({ children }: Props) => {
