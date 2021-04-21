@@ -11,7 +11,7 @@ interface Props {
 	children: any
 }
 
-const Layout = ({ children }: Props) => {
+const Layout: React.FC<Props> = ({ children }: Props) => {
 	const [dialog, setDialog] = useState(false)
 
 	const data = useStaticQuery(graphql`

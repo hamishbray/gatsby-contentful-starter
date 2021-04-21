@@ -13,6 +13,7 @@ type Props = AllContentfulResult<BlogItem, 'posts'>
 
 const BlogLandingPage: React.FC<Props> = ({ data }: Props) => {
 	const posts = data?.posts.nodes ?? []
+
 	return (
 		<Layout>
 			<SEO title="Blog Posts" />

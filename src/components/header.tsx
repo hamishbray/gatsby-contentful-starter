@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Link } from 'gatsby'
 import { useIdentityContext } from 'react-netlify-identity-widget'
 
@@ -6,10 +6,10 @@ import logo from '../images/contentful-logo.svg'
 
 type Props = {
 	siteTitle: string
-	setDialog: React.Dispatch<React.SetStateAction<boolean>>
+	setDialog: Dispatch<SetStateAction<boolean>>
 }
 
-const Header = ({ siteTitle, setDialog }: Props) => {
+const Header: React.FC<Props> = ({ siteTitle, setDialog }: Props) => {
 	const { user, isLoggedIn } = useIdentityContext()
 	const name = user?.user_metadata?.full_name ?? 'Mr Nobody'
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { graphql } from 'gatsby'
 
 import Layout from '../../components/layout'
 import SEO from '../../components/seo'
@@ -13,6 +12,7 @@ type Props = AllContentfulResult<ArticleItem, 'articles'>
 
 const ArticleLandingPage: React.FC<Props> = ({ data }: Props) => {
 	const articles = data?.articles.nodes ?? []
+
 	return (
 		<Layout>
 			<SEO title="Articles" />
