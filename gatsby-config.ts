@@ -64,12 +64,6 @@ const config: GatsbyConfig = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-netlify-identity`,
-			options: {
-				url: process.env.NETLIFY_IDENTITY_URL,
-			},
-		},
-		{
 			resolve: `gatsby-plugin-algolia`,
 			options: {
 				appId: process.env.GATSBY_ALGOLIA_APP_ID,

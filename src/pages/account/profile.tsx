@@ -1,5 +1,5 @@
 import React from 'react'
-import { useIdentityContext } from 'react-netlify-identity-widget'
+import { useIdentityContext } from 'react-netlify-identity'
 
 import ClientOnly from '../../components/clientOnly'
 

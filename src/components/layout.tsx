@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import IdentityModal from 'react-netlify-identity-widget'
+import { IdentityContextProvider } from 'react-netlify-identity'
 
 import '@reach/tabs/styles.css'
-import 'react-netlify-identity-widget/styles.css'
 
 import Header from './header'
 
-interface Props {
-	children: any
+const netlifyIdentityUrl = process.env.NETLIFY_IDENTITY_URL ?? ''
+
+type Props = {
+	children: React.FC<any>
 }
 
 const Layout: React.FC<Props> = ({ children }: Props) => {
-	const [dialog, setDialog] = useState(false)
-
 	const data = useStaticQuery(graphql`
 		query SiteTitleQuery {
 			site {
@@ -25,21 +24,13 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
 	`)
 
 	return (
-		<>
-			<Header
-				siteTitle={data.site.siteMetadata?.title || ``}
-				setDialog={setDialog}
-			/>
+		<IdentityContextProvider url={netlifyIdentityUrl}>
+			<Header siteTitle={data.site.siteMetadata?.title || ``} />
 			<div className="box-border max-w-screen-lg px-4 py-8 mx-auto">
 				<main>{children}</main>
 				<footer className="mt-8">© {new Date().getFullYear()}</footer>
 			</div>
-			<IdentityModal
-				aria-label="login modal"
-				showDialog={dialog}
-				onCloseDialog={() => setDialog(false)}
-			/>
-		</>
+		</IdentityContextProvider>
 	)
 }
 
