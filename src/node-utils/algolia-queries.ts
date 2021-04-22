@@ -30,7 +30,7 @@ const articleQuery = {
 	`,
 	settings: {
 		searchableAttributes: ['title', 'content', 'summary'],
-		attributesForFaceting: ['type'],
+		attributesForFaceting: ['tags', 'type'],
 	},
 	transformer: ({ data }: AllContentfulResult<ArticleItem, 'allArticles'>) =>
 		data?.allArticles.nodes.map((node: any) => {
@@ -115,7 +115,7 @@ const personQuery = {
 	`,
 	settings: {
 		searchableAttributes: ['title', 'summary'],
-		attributesForFaceting: ['type'],
+		attributesForFaceting: ['tags', 'type'],
 	},
 	transformer: ({ data }: AllContentfulResult<PersonItem, 'allPeople'>) =>
 		data?.allPeople.nodes.map((node: any) => {
