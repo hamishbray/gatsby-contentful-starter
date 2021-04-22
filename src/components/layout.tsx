@@ -6,7 +6,7 @@ import '@reach/tabs/styles.css'
 
 import Header from './header'
 
-const netlifyIdentityUrl = process.env.NETLIFY_IDENTITY_URL ?? ''
+const netlifyIdentityUrl = process.env.NETLIFY_IDENTITY_URL as string
 
 type Props = {
 	children: any

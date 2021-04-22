@@ -10,7 +10,7 @@ const Login: React.FC<any> = () => {
 	const [error, setError] = useState(null)
 	const [loggingIn, setLoggingIn] = useState(false)
 
-	const onSubmit = (event: FormEvent) => {
+	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		login()
 	}
