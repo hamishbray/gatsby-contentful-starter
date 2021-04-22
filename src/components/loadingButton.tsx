@@ -13,7 +13,7 @@ const LoadingButton: React.FC<Props> = ({
 }: Props) => (
 	<button
 		type="submit"
-		className={`inline-flex items-center px-4 py-2 mt-4 border-2 border-black rounded hover:border-gray-500 hover:text-black ${
+		className={`inline-flex items-center px-4 py-2 mt-6 border-2 border-black rounded hover:border-gray-500 hover:text-black ${
 			isLoading && 'cursor-not-allowed'
 		}`}
 		disabled={isLoading}

@@ -14,7 +14,8 @@ const Header: React.FC<Props> = ({ siteTitle }: Props) => {
 	const { user, isLoggedIn, logoutUser } = useIdentityContext()
 	const name = user?.user_metadata?.full_name ?? 'Mr Nobody'
 
-	const login = () => isLoggedIn && logoutUser()
+	const login = () =>
+		isLoggedIn ? logoutUser() : window.location.assign('/account/login')
 
 	return (
 		<header className="mb-6 bg-yellow-900">
@@ -35,11 +36,7 @@ const Header: React.FC<Props> = ({ siteTitle }: Props) => {
 							className="inline px-4 py-2 border-2 border-white rounded hover:border-black hover:text-black"
 							onClick={login}
 						>
-							{isLoggedIn ? (
-								`Hello ${name}, Log out here!`
-							) : (
-								<Link to={`/account/login`}>Log In</Link>
-							)}
+							{isLoggedIn ? `Hello ${name}, Log out here!` : `Log In`}
 						</button>
 					</ClientOnly>
 				</nav>
