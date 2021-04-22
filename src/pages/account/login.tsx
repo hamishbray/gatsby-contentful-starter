@@ -1,6 +1,6 @@
 import React, { useRef, useState, FormEvent } from 'react'
 import { navigate } from '@reach/router'
-import { useIdentityContext } from 'react-netlify-identity'
+import { useIdentityContext } from 'react-netlify-identity-widget'
 
 import LoadingButton from '../../components/loadingButton'
 

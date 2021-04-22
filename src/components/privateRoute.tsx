@@ -1,6 +1,6 @@
 import React from 'react'
 import { navigate } from 'gatsby'
-import { useIdentityContext } from 'react-netlify-identity'
+import { useIdentityContext } from 'react-netlify-identity-widget'
 
 type Props = {
 	component: React.FC<any>

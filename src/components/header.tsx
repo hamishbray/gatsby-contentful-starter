@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { useIdentityContext } from 'react-netlify-identity'
+import { useIdentityContext } from 'react-netlify-identity-widget'
 
 import logo from '../images/contentful-logo.svg'
 
