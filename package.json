@@ -38,7 +38,6 @@
     "@reach/dialog": "^0.15.0",
     "@reach/tabs": "^0.15.0",
     "@reach/visually-hidden": "^0.15.0",
-    "@sindresorhus/slugify": "^1.1.0",
     "@tailwindcss/forms": "^0.3.2",
     "@types/node": "^14.14.35",
     "@types/qs": "^6.9.6",
