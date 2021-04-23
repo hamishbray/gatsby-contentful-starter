@@ -28,7 +28,8 @@
     "react-helmet": "^6.1.0",
     "react-instantsearch-dom": "^6.10.3",
     "react-lite-yt-embed": "^1.2.6",
-    "react-netlify-identity-widget": "^0.2.7"
+    "react-netlify-identity-widget": "^0.2.7",
+    "sal.js": "^0.8.4"
   },
   "devDependencies": {
     "@babel/plugin-transform-object-assign": "^7.12.13",
