@@ -14,6 +14,7 @@ import {
 	RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text'
 import { getType, Asset, Item } from '../models/common'
+import AnimateUp from './animateUp'
 
 const Bold = ({ children }: { children: ReactNode }) => (
 	<span className="font-bold">{children}</span>
@@ -42,11 +43,13 @@ const EmbeddedAsset = ({ node }: { node: Inline | Block }) => {
 	const image = gatsbyImageData && getImage(gatsbyImageData)
 
 	return image ? (
-		<GatsbyImage
-			className="my-8"
-			alt={description || contentful_id}
-			image={image}
-		/>
+		<AnimateUp>
+			<GatsbyImage
+				className="my-8"
+				alt={description || contentful_id}
+				image={image}
+			/>
+		</AnimateUp>
 	) : (
 		<p>
 			<a href={url} target="_blank">
