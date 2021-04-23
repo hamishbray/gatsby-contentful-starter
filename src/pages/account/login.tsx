@@ -6,10 +6,10 @@ import { useIdentityContext } from 'react-netlify-identity-widget'
 import LoadingButton from '../../components/loadingButton'
 
 const Login: React.FC<any> = () => {
-	const { loginUser, logoutUser, signupUser } = useIdentityContext()
+	const { loginUser } = useIdentityContext()
 	const formRef = useRef<HTMLFormElement>(null!)
 	const [error, setError] = useState(null)
-	const [loggingIn, setLoggingIn] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -20,7 +20,7 @@ const Login: React.FC<any> = () => {
 		const email = formRef.current.email.value
 		const password = formRef.current.password.value
 		setError(null)
-		setLoggingIn(true)
+		setLoading(true)
 
 		try {
 			const user = await loginUser(email, password)
@@ -30,7 +30,7 @@ const Login: React.FC<any> = () => {
 			setError(error.json?.error_description)
 			console.error('Error logging in user', error)
 		} finally {
-			setLoggingIn(false)
+			setLoading(false)
 		}
 	}
 
@@ -49,7 +49,7 @@ const Login: React.FC<any> = () => {
 								placeholder="Enter your email"
 							/>
 						</label>
-						<label className="block mt-4">
+						<label className="relative block mt-4">
 							<span>Password</span>
 							<input
 								type="password"
@@ -57,12 +57,17 @@ const Login: React.FC<any> = () => {
 								className="block w-full mt-1 form-input"
 								placeholder="Enter your password"
 							></input>
+							<span className="absolute right-0 text-sm -bottom-6">
+								<Link to={'/account/recover-password'}>
+									Forgotten password?
+								</Link>
+							</span>
 						</label>
 					</div>
 					<LoadingButton
 						defaultLabel="Submit"
 						loadingLabel="Logging In"
-						isLoading={loggingIn}
+						isLoading={loading}
 					/>
 					{error && (
 						<div className="mt-2 text-red-700">

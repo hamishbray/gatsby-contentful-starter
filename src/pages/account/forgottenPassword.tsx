@@ -5,33 +5,29 @@ import { useIdentityContext } from 'react-netlify-identity-widget'
 
 import LoadingButton from '../../components/loadingButton'
 
-const Login: React.FC<any> = () => {
-	const { signupUser } = useIdentityContext()
+const ForgottenPassword: React.FC<any> = () => {
+	const { requestPasswordRecovery } = useIdentityContext()
 	const formRef = useRef<HTMLFormElement>(null!)
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		signup()
+		recoverPassword()
 	}
 
-	const signup = async () => {
-		const name = formRef.current.username.value
+	const recoverPassword = async () => {
 		const email = formRef.current.email.value
-		const password = formRef.current.password.value
 		setError(null)
 		setLoading(true)
 
 		try {
-			const user = await signupUser(email, password, {
-				full_name: name,
-			})
-			console.log('Success! Signed up user: ', user)
-			navigate('/account/profile')
+			await requestPasswordRecovery(email)
+			console.log('Success! Recovered password')
+			navigate('/account/login')
 		} catch (error) {
-			setError(error.message)
-			console.error('Error signing up user', error)
+			setError(error.json?.error_description)
+			console.error('Error recovering password', error)
 		} finally {
 			setLoading(false)
 		}
@@ -40,19 +36,10 @@ const Login: React.FC<any> = () => {
 	return (
 		<section className="flex items-center justify-center">
 			<div className="max-w-full w-96">
-				<h1>Sign Up</h1>
+				<h1>Forgotten Password?</h1>
 				<form ref={formRef} onSubmit={onSubmit}>
 					<div>
 						<label className="block">
-							<span>Name</span>
-							<input
-								type="text"
-								name="username"
-								className="block w-full mt-1 form-input"
-								placeholder="Enter your name"
-							/>
-						</label>
-						<label className="block mt-4">
 							<span>Email</span>
 							<input
 								type="email"
@@ -61,19 +48,10 @@ const Login: React.FC<any> = () => {
 								placeholder="Enter your email"
 							/>
 						</label>
-						<label className="block mt-4">
-							<span>Password</span>
-							<input
-								type="password"
-								name="password"
-								className="block w-full mt-1 form-input"
-								placeholder="Enter your password"
-							></input>
-						</label>
 					</div>
 					<LoadingButton
 						defaultLabel="Submit"
-						loadingLabel="Signing Up"
+						loadingLabel="Recovering"
 						isLoading={loading}
 					/>
 					{error && (
@@ -82,14 +60,9 @@ const Login: React.FC<any> = () => {
 						</div>
 					)}
 				</form>
-				<div className="mt-4">
-					<p>
-						Already a member? <Link to={'/account/login'}>Sign In</Link>
-					</p>
-				</div>
 			</div>
 		</section>
 	)
 }
 
-export default Login
+export default ForgottenPassword
