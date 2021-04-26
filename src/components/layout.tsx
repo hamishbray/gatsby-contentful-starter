@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import sal from 'sal.js'
 
 import '@reach/tabs/styles.css'
 import 'sal.js/dist/sal.css'
@@ -21,10 +20,6 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
 			}
 		}
 	`)
-
-	useEffect(() => {
-		sal()
-	}, [])
 
 	return (
 		<>
