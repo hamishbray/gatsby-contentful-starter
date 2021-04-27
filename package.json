@@ -19,9 +19,11 @@
     "gatsby-plugin-typescript": "^3.2.0",
     "gatsby-source-contentful": "^5.2.0",
     "gatsby-source-filesystem": "^3.2.0",
+    "gatsby-source-shopify": "^4.3.0",
     "gatsby-transformer-remark": "^3.2.0",
     "gatsby-transformer-sharp": "^3.2.0",
     "instantsearch.css": "^7.4.5",
+    "kea": "^2.3.7",
     "qs": "^6.10.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -29,7 +31,11 @@
     "react-instantsearch-dom": "^6.10.3",
     "react-lite-yt-embed": "^1.2.6",
     "react-netlify-identity-widget": "^0.2.7",
-    "sal.js": "^0.8.4"
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0",
+    "reselect": "^4.0.0",
+    "sal.js": "^0.8.4",
+    "shopify-buy": "^2.11.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-object-assign": "^7.12.13",
@@ -46,6 +52,7 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-helmet": "^6.1.0",
     "@types/react-instantsearch-dom": "^6.10.0",
+    "@types/shopify-buy": "^2.10.5",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "autoprefixer": "^10.2.5",

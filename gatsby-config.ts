@@ -70,6 +70,13 @@ const config: GatsbyConfig = {
 			},
 		},
 		{
+			resolve: `gatsby-source-shopify`,
+			options: {
+				shopName: process.env.SHOPIFY_SHOP_NAME, // The domain name of your Shopify shop.
+				accessToken: process.env.SHOPIFY_ACCESS_TOKEN, // The storefront access token
+			},
+		},
+		{
 			resolve: `gatsby-plugin-algolia`,
 			options: {
 				appId: process.env.GATSBY_ALGOLIA_APP_ID,
