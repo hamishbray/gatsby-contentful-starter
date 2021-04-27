@@ -28,12 +28,14 @@ const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
 		<Layout>
 			<SEO title="Our Courses" />
 			<h1>Our Awesome Courses</h1>
-			{products.map(({ descriptionHtml, title, variants }, index) => {
+			{products.map(({ descriptionHtml, slug, title, variants }, index) => {
 				const lineItem = getLineItem(variants[0].shopifyId)
 
 				return (
 					<div key={index}>
-						<h2>{title}</h2>
+						<h2>
+							<Link to={`/product/${slug}`}>{title}</Link>
+						</h2>
 						<div
 							dangerouslySetInnerHTML={{
 								__html: descriptionHtml,

@@ -2,10 +2,12 @@ import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 type ShopifyImage = {
 	localFile: {
-		childrenImageSharp: {
-			gatsbyImageData: IGatsbyImageData
-		}
+		childrenImageSharp: GatsbyImageData[]
 	}
+}
+
+type GatsbyImageData = {
+	gatsbyImageData: IGatsbyImageData
 }
 
 type ShopifyPrice = {
