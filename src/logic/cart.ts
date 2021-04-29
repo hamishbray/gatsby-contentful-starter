@@ -13,8 +13,8 @@ interface Actions {
 	addToCart: (
 		productId: number,
 		variantId: number,
-		retry?: boolean
-	) => { productId: number; variantId: number; retry: boolean }
+		isRetry?: boolean
+	) => { productId: number; variantId: number; isRetry: boolean }
 	removeItemFromCart: (itemId: string) => { itemId: string }
 	updateCartItemQuantity: (
 		itemId: string,
@@ -32,10 +32,10 @@ export const cartLogic = kea<CartLogicType>({
 	path: () => ['cart'],
 	actions: {
 		fetchCart: true,
-		addToCart: (productId, variantId, retry) => ({
+		addToCart: (productId, variantId, isRetry) => ({
 			productId,
 			variantId,
-			retry,
+			isRetry,
 		}),
 		removeItemFromCart: itemId => ({ itemId }),
 		updateCartItemQuantity: (itemId, updatedItemData) => ({
@@ -98,7 +98,7 @@ export const cartLogic = kea<CartLogicType>({
 				actions.setCartError(error)
 			}
 		},
-		addToCart: async ({ productId, variantId, retry }) => {
+		addToCart: async ({ productId, variantId, isRetry }) => {
 			try {
 				const result = await fetch(
 					`/.netlify/functions/bigcommerce?endpoint=carts/items`,
@@ -118,8 +118,13 @@ export const cartLogic = kea<CartLogicType>({
 					}
 				)
 
-				if (result.status === 404 && !retry) {
+				if (result.status === 404 && !isRetry) {
 					// Recreate a cart if it was destroyed
+					await fetch(`/.netlify/functions/bigcommerce?endpoint=carts`, {
+						credentials: 'same-origin',
+						mode: 'same-origin',
+					})
+					actions.addToCart(productId, variantId, true)
 				}
 
 				const response = await result.json()
