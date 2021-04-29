@@ -1,24 +1,24 @@
-export type ContentfulItem<T> = T & {
+export type ContentItem<T> = T & {
 	id: string
 	internal?: {
 		type: string
 	}
 }
 
-type AllContentfulItem<T, U extends string> = {
+type AllContentItem<T, U extends string> = {
 	[u in U]: {
-		nodes: ContentfulItem<T>[]
+		nodes: ContentItem<T>[]
 	}
 }
 
-export type ContentfulResult<T, N extends string> = {
+export type ContentResult<T, N extends string> = {
 	errors?: any
 	data?: {
-		[n in N]: ContentfulItem<T>
+		[n in N]: ContentItem<T>
 	}
 }
 
-export type AllContentfulResult<T, U extends string> = {
+export type AllContentResult<T, U extends string> = {
 	errors?: any
-	data?: AllContentfulItem<T, U>
+	data?: AllContentItem<T, U>
 }

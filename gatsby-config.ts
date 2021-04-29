@@ -26,6 +26,7 @@ const config: GatsbyConfig = {
 	},
 	flags: {
 		FAST_DEV: true,
+		PARALLEL_SOURCING: true,
 	},
 	plugins: [
 		'gatsby-plugin-postcss',
@@ -70,10 +71,16 @@ const config: GatsbyConfig = {
 			},
 		},
 		{
-			resolve: `gatsby-source-shopify`,
+			resolve: `gatsby-source-bigcommerce`,
 			options: {
-				shopName: process.env.SHOPIFY_SHOP_NAME, // The domain name of your Shopify shop.
-				accessToken: process.env.SHOPIFY_ACCESS_TOKEN, // The storefront access token
+				clientId: process.env.BIGCOMMERCE_CLIENT_ID,
+				secret: process.env.BIGCOMMERCE_CLIENT_SECRET,
+				accessToken: process.env.BIGCOMMERCE_ACCESS_TOKEN,
+				storeHash: process.env.BIGCOMMERCE_STORE_HASH,
+				endpoints: {
+					BigCommerceProduct: '/catalog/products?include=images',
+					BigCommerceCategory: '/catalog/categories',
+				},
 			},
 		},
 		{

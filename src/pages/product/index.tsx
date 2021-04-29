@@ -1,74 +1,98 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { useActions, useValues } from 'kea'
-import { LineItem } from 'shopify-buy'
 
 import Layout from '../../components/layout'
 import SEO from '../../components/seo'
 
-import { AllContentfulResult } from '../../node-utils/types'
-import { ProductItem } from '../../models/product'
+import { AllContentResult } from '../../node-utils/types'
+import { BCProductItem } from '../../models/product'
+import { BCListItem } from '../../models/cart'
 
 import { cartLogic } from '../../logic/cart'
-import { useCheckout } from '../../utils/cart'
 
-type Props = AllContentfulResult<ProductItem, 'products'>
+type Props = AllContentResult<BCProductItem, 'products'>
 
 const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
 	const { cart } = useValues(cartLogic)
-	const { addVariantToCart, removeLineItem } = useActions(cartLogic)
-	useCheckout()
+	const { addToCart, removeItemFromCart } = useActions(cartLogic)
 	const products = data?.products.nodes ?? []
 
-	const getLineItem = (id: string): LineItem | undefined =>
-		//@ts-ignore
-		cart?.lineItems.find(item => item.variant.id === id)
+	const getLineItem = (
+		sku: string,
+		productType: string
+	): BCListItem | undefined => {
+		const lineItemType = `${productType}_items`
+
+		return cart
+			? (cart.line_items?.[lineItemType] as BCListItem[]).find(
+					item => item.sku === sku
+			  )
+			: undefined
+	}
 
 	return (
 		<Layout>
-			<SEO title="Our Courses" />
-			<h1>Our Awesome Courses</h1>
-			{products.map(({ descriptionHtml, slug, title, variants }, index) => {
-				const lineItem = getLineItem(variants[0].shopifyId)
+			<SEO title="Our Products" />
+			<h1>Our Awesome Products</h1>
+			{products.map(
+				({
+					base_variant_id,
+					bigcommerce_id,
+					calculated_price,
+					description,
+					custom_url,
+					name,
+					price,
+					sku,
+					type,
+				}) => {
+					const lineItem = getLineItem(sku, type)
 
-				return (
-					<div key={index}>
-						<h2>
-							<Link to={`/product/${slug}`}>{title}</Link>
-						</h2>
-						<div
-							dangerouslySetInnerHTML={{
-								__html: descriptionHtml,
-							}}
-						></div>
-						<p className="my-2">
-							<span className="font-bold">Price: </span>
-							<span>${variants[0].price}</span>
-						</p>
-						<div className="mb-6" style={{ height: '42px' }}>
-							{cart && (
-								<p>
-									{lineItem ? (
-										<span
-											className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
-											onClick={() => removeLineItem(lineItem.id)}
-										>
-											Remove
-										</span>
-									) : (
-										<span
-											className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
-											onClick={() => addVariantToCart(variants[0].shopifyId, 1)}
-										>
-											Add to Cart
-										</span>
-									)}
-								</p>
-							)}
+					return (
+						<div key={bigcommerce_id}>
+							<h2>
+								<Link to={`/product${custom_url.url}`}>{name}</Link>
+							</h2>
+							<div
+								dangerouslySetInnerHTML={{
+									__html: description,
+								}}
+							></div>
+							<p className="my-2">
+								<span className="font-bold">Price: </span>
+								{calculated_price !== price && (
+									<span className="line-through">${price} </span>
+								)}
+								<span>${calculated_price}</span>
+							</p>
+							<div className="mb-6" style={{ height: '42px' }}>
+								{cart && (
+									<p>
+										{lineItem ? (
+											<span
+												className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
+												onClick={() => removeItemFromCart(lineItem.id)}
+											>
+												Remove
+											</span>
+										) : (
+											<span
+												className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
+												onClick={() =>
+													addToCart(bigcommerce_id, base_variant_id)
+												}
+											>
+												Add to Cart
+											</span>
+										)}
+									</p>
+								)}
+							</div>
 						</div>
-					</div>
-				)
-			})}
+					)
+				}
+			)}
 			<div className="mt-8">
 				<Link to={'/cart'}>View Cart</Link>
 			</div>
@@ -80,35 +104,32 @@ export default ProductsLandingPage
 
 export const query = graphql`
 	{
-		products: allShopifyProduct(
-			filter: { availableForSale: { eq: true }, productType: { eq: "Course" } }
-		) {
+		products: allBigCommerceProduct {
 			nodes {
-				descriptionHtml
+				availability
+				base_variant_id
+				bigcommerce_id
+				calculated_price
+				categories
+				custom_url {
+					url
+				}
+				date_modified(formatString: "MMM Do, YYYY")
+				description
 				id
 				images {
-					localFile {
-						childrenImageSharp {
-							gatsbyImageData(width: 288, height: 192)
-						}
-					}
+					description
+					is_thumbnail
+					url_standard
+					url_thumbnail
 				}
-				priceRange {
-					minVariantPrice {
-						amount
-						currencyCode
-					}
-				}
-				shopifyId
-				slug: handle
-				tags
-				title
-				variants {
-					id
-					price
-					shopifyId
-					sku
-				}
+				name
+				price
+				reviews_rating_sum
+				reviews_count
+				sku
+				type
+				view_count
 			}
 		}
 	}

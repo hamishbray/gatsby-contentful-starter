@@ -1,25 +1,22 @@
 import { resolve } from 'path'
 import { Reporter } from 'gatsby'
 
-import { AllContentfulResult } from './types'
-import { ProductItem } from '../models/product'
+import { AllContentResult } from './types'
+import { BCProductItem } from '../models/product'
 
 export const createProductPages = async (
 	createPage: any,
 	graphql: any,
 	reporter: Reporter
 ) => {
-	const result: AllContentfulResult<
-		ProductItem,
-		'allProducts'
-	> = await graphql(`
+	const result: AllContentResult<BCProductItem, 'allProducts'> = await graphql(`
 		{
-			allProducts: allShopifyProduct(
-				filter: { availableForSale: { eq: true } }
-			) {
+			allProducts: allBigCommerceProduct {
 				nodes {
-					slug: handle
-					title
+					custom_url {
+						url
+					}
+					name
 				}
 			}
 		}
@@ -31,13 +28,14 @@ export const createProductPages = async (
 	}
 
 	// Product Pages
-	result.data?.allProducts.nodes.forEach(product => {
+	result.data?.allProducts.nodes.forEach(product =>
 		createPage({
-			path: `/product/${product.slug}`,
+			path: `/product${product.custom_url.url}`,
 			component: resolve(`src/templates/product.tsx`),
 			context: {
 				...product,
+				slug: product.custom_url.url,
 			},
 		})
-	})
+	)
 }

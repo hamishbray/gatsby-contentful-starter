@@ -5,10 +5,10 @@ import Layout from '../../components/layout'
 import SEO from '../../components/seo'
 import Cards from '../../components/cards'
 
-import { AllContentfulResult } from '../../node-utils/types'
+import { AllContentResult } from '../../node-utils/types'
 import { BlogItem } from '../../models/blog'
 
-type Props = AllContentfulResult<BlogItem, 'posts'>
+type Props = AllContentResult<BlogItem, 'posts'>
 
 const BlogLandingPage: React.FC<Props> = ({ data }: Props) => {
 	const posts = data?.posts.nodes ?? []

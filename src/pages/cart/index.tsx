@@ -2,7 +2,6 @@ import React from 'react'
 import { useActions, useValues } from 'kea'
 
 import { cartLogic } from '../../logic/cart'
-import { useCheckout } from '../../utils/cart'
 
 import Layout from '../../components/layout'
 import SEO from '../../components/seo'
@@ -10,7 +9,6 @@ import SEO from '../../components/seo'
 const CartPage: React.FC = () => {
 	const { cart } = useValues(cartLogic)
 	const { removeLineItem } = useActions(cartLogic)
-	useCheckout()
 
 	const hasCartItems = (cart?.lineItems && cart.lineItems.length > 0) as boolean
 

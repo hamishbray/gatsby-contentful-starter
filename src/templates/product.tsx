@@ -1,46 +1,27 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 import Layout from '../components/layout'
-import { ProductItem } from '../models/product'
-import { ContentfulResult } from '../node-utils/types'
+import { BCProductItem } from '../models/product'
+import { ContentResult } from '../node-utils/types'
 
-type Props = ContentfulResult<ProductItem, 'productItem'>
+type Props = ContentResult<BCProductItem, 'productItem'>
 
 const ProductPage: React.FC<Props> = ({ data }: Props) => {
-	const { descriptionHtml, images, tags, title, publishedAt } =
-		data?.productItem ?? ({} as ProductItem)
-
-	const pageImage = getImage(
-		images[0].localFile.childrenImageSharp[0].gatsbyImageData
-	)
+	const { date_modified, description, images, name } =
+		data?.productItem ?? ({} as BCProductItem)
 
 	return (
 		<Layout>
 			<div className="product">
 				<section>
-					<h1>{title}</h1>
-					{pageImage && (
-						<GatsbyImage alt={title} image={pageImage} loading="eager" />
-					)}
-					<p className="mt-6 italic">Posted: {publishedAt}</p>
-					{tags && (
-						<div className="flex mt-4">
-							{tags.map((tag, index) => (
-								<span
-									key={index}
-									className="px-3 py-1 mr-2 text-white bg-yellow-900 rounded-full"
-								>
-									{tag}
-								</span>
-							))}
-						</div>
-					)}
+					<h1>{name}</h1>
+					<img alt={name} src={images[0].url_standard} />
+					<p className="mt-6 italic">Last updated: {date_modified}</p>
 					<div
 						className="mt-4"
 						dangerouslySetInnerHTML={{
-							__html: descriptionHtml,
+							__html: description,
 						}}
 					></div>
 				</section>
@@ -53,18 +34,31 @@ export default ProductPage
 
 export const query = graphql`
 	query productBySlug($slug: String!) {
-		productItem: shopifyProduct(handle: { eq: $slug }) {
-			descriptionHtml
-			images {
-				localFile {
-					childrenImageSharp {
-						gatsbyImageData(layout: FULL_WIDTH)
-					}
-				}
+		productItem: bigCommerceProduct(custom_url: { url: { eq: $slug } }) {
+			availability
+			base_variant_id
+			bigcommerce_id
+			calculated_price
+			categories
+			custom_url {
+				url
 			}
-			publishedAt(formatString: "MMM Do, YYYY")
-			title
-			tags
+			date_modified(formatString: "MMM Do, YYYY")
+			description
+			id
+			images {
+				description
+				is_thumbnail
+				url_standard
+				url_thumbnail
+			}
+			name
+			price
+			reviews_rating_sum
+			reviews_count
+			sku
+			type
+			view_count
 		}
 	}
 `

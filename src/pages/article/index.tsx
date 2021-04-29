@@ -5,10 +5,10 @@ import Layout from '../../components/layout'
 import SEO from '../../components/seo'
 import Cards from '../../components/cards'
 
-import { AllContentfulResult } from '../../node-utils/types'
+import { AllContentResult } from '../../node-utils/types'
 import { ArticleItem } from '../../models/article'
 
-type Props = AllContentfulResult<ArticleItem, 'articles'>
+type Props = AllContentResult<ArticleItem, 'articles'>
 
 const ArticleLandingPage: React.FC<Props> = ({ data }: Props) => {
 	const articles = data?.articles.nodes ?? []

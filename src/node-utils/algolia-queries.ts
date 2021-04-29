@@ -1,4 +1,4 @@
-import { AllContentfulResult } from './types'
+import { AllContentResult } from './types'
 import { ArticleItem } from '../models/article'
 import { BlogItem } from '../models/blog'
 import { PersonItem } from '../models/person'
@@ -32,7 +32,7 @@ const articleQuery = {
 		searchableAttributes: ['title', 'content', 'summary'],
 		attributesForFaceting: ['tags', 'type'],
 	},
-	transformer: ({ data }: AllContentfulResult<ArticleItem, 'allArticles'>) =>
+	transformer: ({ data }: AllContentResult<ArticleItem, 'allArticles'>) =>
 		data?.allArticles.nodes.map((node: any) => {
 			node.summary = node.summary?.childMarkdownRemark.html
 			node.thumbnail = node.image?.file.url
@@ -77,7 +77,7 @@ const blogQuery = {
 		searchableAttributes: ['title', 'content', 'summary', 'tags'],
 		attributesForFaceting: ['tags', 'type'],
 	},
-	transformer: ({ data }: AllContentfulResult<BlogItem, 'allBlogs'>) =>
+	transformer: ({ data }: AllContentResult<BlogItem, 'allBlogs'>) =>
 		data?.allBlogs.nodes.map((node: any) => {
 			node.content = node.body?.childMarkdownRemark.html
 			node.summary = node.description?.childMarkdownRemark.html
@@ -117,7 +117,7 @@ const personQuery = {
 		searchableAttributes: ['title', 'summary'],
 		attributesForFaceting: ['tags', 'type'],
 	},
-	transformer: ({ data }: AllContentfulResult<PersonItem, 'allPeople'>) =>
+	transformer: ({ data }: AllContentResult<PersonItem, 'allPeople'>) =>
 		data?.allPeople.nodes.map((node: any) => {
 			node.summary = node.shortBio?.childMarkdownRemark.html
 			node.thumbnail = node.image?.file.url

@@ -4,9 +4,9 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 import Layout from '../components/layout'
 import { BlogItem } from '../models/blog'
-import { ContentfulResult } from '../node-utils/types'
+import { ContentResult } from '../node-utils/types'
 
-type Props = ContentfulResult<BlogItem, 'blogItem'>
+type Props = ContentResult<BlogItem, 'blogItem'>
 
 const BlogPage: React.FC<Props> = ({ data }: Props) => {
 	const {

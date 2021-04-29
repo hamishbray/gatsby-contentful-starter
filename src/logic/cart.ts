@@ -1,53 +1,49 @@
 import { kea, MakeLogicType } from 'kea'
-import { buildClient, Cart, Client } from 'shopify-buy'
+
+import { BCCart } from '../models/cart'
 
 interface Values {
-	cart?: Cart
-	isUpdating: boolean
+	cart?: BCCart | null
+	cartLoading: boolean
+	cartError?: string
 }
 
 interface Actions {
-	addVariantToCart: (
-		variantId: string,
-		quantity: number
-	) => { variantId: string; quantity: number }
-	removeLineItem: (
-		lineItemId: string | number
-	) => { lineItemId: string | number }
-	updateLineItem: (
-		lineItemId: string | number,
-		quantity: number
-	) => {
-		lineItemId: string | number
-		quantity: number
-	}
-	isUpdating: (isUpdating: boolean) => { isUpdating: boolean }
-	setCart: (cart: Cart) => { cart: Cart }
+	fetchCart: () => boolean
+	addToCart: (
+		productId: number,
+		variantId: number,
+		retry?: boolean
+	) => { productId: number; variantId: number; retry: boolean }
+	removeItemFromCart: (itemId: string) => { itemId: string }
+	updateCartItemQuantity: (
+		itemId: string,
+		updatedItemData: any
+	) => { itemId: string; updatedItemData: any }
+	setCart: (cart?: BCCart) => { cart: BCCart | undefined }
+	setCartError: (error: string) => { error: string }
 }
 
 interface Props {}
 
 type CartLogicType = MakeLogicType<Values, Actions, Props>
 
-export const client: Client = buildClient({
-	storefrontAccessToken: process.env.SHOPIFY_ACCESS_TOKEN as string,
-	domain: `${process.env.SHOPIFY_SHOP_NAME}.myshopify.com`,
-})
-
 export const cartLogic = kea<CartLogicType>({
 	path: () => ['cart'],
 	actions: {
-		addVariantToCart: (variantId, quantity) => ({
+		fetchCart: true,
+		addToCart: (productId, variantId, retry) => ({
+			productId,
 			variantId,
-			quantity,
+			retry,
 		}),
-		removeLineItem: lineItemId => ({ lineItemId }),
-		updateLineItem: (lineItemId, quantity) => ({
-			lineItemId,
-			quantity,
+		removeItemFromCart: itemId => ({ itemId }),
+		updateCartItemQuantity: (itemId, updatedItemData) => ({
+			itemId,
+			updatedItemData,
 		}),
-		isUpdating: isUpdating => ({ isUpdating }),
-		setCart: (cart: Cart) => ({ cart }),
+		setCart: cart => ({ cart }),
+		setCartError: error => ({ error }),
 	},
 	reducers: {
 		cart: [
@@ -56,49 +52,101 @@ export const cartLogic = kea<CartLogicType>({
 				setCart: (_, { cart }) => cart,
 			},
 		],
-		isUpdating: [
+		cartLoading: [
 			false,
 			{
-				isUpdating: (_, { isUpdating }) => isUpdating,
+				fetchCart: () => true,
+				addToCart: () => true,
+				removeItemFromCart: () => true,
+				setCart: () => false,
+				setCartError: () => false,
+			},
+		],
+		cartError: [
+			null,
+			{
+				fetchCart: () => null,
+				addToCart: () => null,
+				removeItemFromCart: () => null,
+				setCartError: (_, { error }) => error,
 			},
 		],
 	},
-	listeners: ({ actions, values }) => ({
-		addVariantToCart: async ({ variantId, quantity }) => {
-			if (variantId === '' || !quantity) {
-				console.error('Both a size and quantity are required.')
-				return
-			}
-			actions.isUpdating(true)
-
-			const { cart } = values
-
+	events: ({ actions }) => ({
+		afterMount: () => actions.fetchCart(),
+	}),
+	listeners: ({ actions }) => ({
+		fetchCart: async () => {
 			try {
-				const result = await client.checkout.addLineItems(cart?.id as string, [
-					{ variantId, quantity },
-				])
-				actions.setCart(result)
+				console.log('trying to hit bigcommerce lambda function')
+				const result = await fetch(
+					`/.netlify/functions/bigcommerce?endpoint=carts`,
+					{
+						credentials: 'same-origin',
+						mode: 'same-origin',
+					}
+				)
+				console.log('got result back from bigcommerce lambda function')
+				const response = await result.json()
+				if (response.status === 200) actions.setCart(response.data)
+				else actions.setCartError(response.message)
 			} catch (error) {
-				console.error('Error adding item to cart: ', error)
-			} finally {
-				actions.isUpdating(false)
+				console.error('Error fetching cart: ', error)
+				actions.setCartError(error)
 			}
 		},
-		removeLineItem: async ({ lineItemId }) => {
-			actions.isUpdating(true)
-
-			const { cart } = values
-
+		addToCart: async ({ productId, variantId, retry }) => {
 			try {
-				const result = await client.checkout.removeLineItems(
-					cart?.id as string,
-					[lineItemId as string]
+				const result = await fetch(
+					`/.netlify/functions/bigcommerce?endpoint=carts/items`,
+					{
+						method: 'POST',
+						credentials: 'same-origin',
+						mode: 'same-origin',
+						body: JSON.stringify({
+							line_items: [
+								{
+									quantity: 1,
+									product_id: productId,
+									variant_id: variantId,
+								},
+							],
+						}),
+					}
 				)
-				actions.setCart(result)
+
+				if (result.status === 404 && !retry) {
+					// Recreate a cart if it was destroyed
+				}
+
+				const response = await result.json()
+				actions.setCart(response.data)
 			} catch (error) {
-				console.error('Error removing line item: ', error)
-			} finally {
-				actions.isUpdating(false)
+				console.error('Error adding item to cart: ', error)
+				actions.setCartError(error)
+			}
+		},
+		removeItemFromCart: async ({ itemId }) => {
+			try {
+				const result = await fetch(
+					`/.netlify/functions/bigcommerce?endpoint=carts/items&itemId=${itemId}`,
+					{
+						credentials: 'same-origin',
+						mode: 'same-origin',
+						method: 'delete',
+					}
+				)
+
+				if (result.status === 204) {
+					actions.setCart(undefined)
+					return
+				}
+
+				const response = await result.json()
+				actions.setCart(response.data)
+			} catch (error) {
+				console.error('Error removing item from cart: ', error)
+				actions.setCartError(error)
 			}
 		},
 	}),

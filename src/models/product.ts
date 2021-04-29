@@ -1,41 +1,31 @@
-import { IGatsbyImageData } from 'gatsby-plugin-image'
-
-type ShopifyImage = {
-	localFile: {
-		childrenImageSharp: GatsbyImageData[]
-	}
+type BCProductImage = {
+	description: string
+	is_thumbnail: boolean
+	url_standard: string
+	url_thumbnail: string
 }
 
-type GatsbyImageData = {
-	gatsbyImageData: IGatsbyImageData
+type BCCustomUrl = {
+	is_customized: boolean
+	url: string
 }
 
-type ShopifyPrice = {
-	amount: string
-	currencyCode: string
-}
-
-type ShopifyVariant = {
-	availableForSale: boolean
+export interface BCProductItem {
+	availability: 'available' | 'unavailable'
+	base_variant_id: number
+	bigcommerce_id: number
+	calculated_price: number
+	categories: number[]
+	custom_url: BCCustomUrl
+	date_modified: string
+	description: string
 	id: string
-	image: ShopifyImage
-	price: string
-	priveV2: ShopifyPrice
-	shopifyId: string
+	images: BCProductImage[]
+	name: string
+	price: number
+	reviews_count: number
+	reviews_rating_sum: number
 	sku: string
-}
-
-export interface ProductItem {
-	availableForSale: boolean
-	createdAt: string
-	descriptionHtml: string
-	id: string
-	images: ShopifyImage[]
-	productType: string
-	publishedAt: string
-	shopifyId: string
-	slug: string
-	tags: string[]
-	title: string
-	variants: ShopifyVariant[]
+	type: 'digital' | 'physical'
+	view_count: number
 }

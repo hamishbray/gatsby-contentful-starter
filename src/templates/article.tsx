@@ -3,13 +3,13 @@ import { graphql } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 import { ArticleItem } from '../models/article'
-import { ContentfulResult } from '../node-utils/types'
+import { ContentResult } from '../node-utils/types'
 
 import Cards from '../components/cards'
 import Layout from '../components/layout'
 import { getRichText } from '../components/richText'
 
-type Props = ContentfulResult<ArticleItem, 'articleItem'>
+type Props = ContentResult<ArticleItem, 'articleItem'>
 
 const ArticlePage: React.FC<Props> = ({ data }: Props) => {
 	const { bodyCopy, postDate, relatedArticles, teaserImage, title } =

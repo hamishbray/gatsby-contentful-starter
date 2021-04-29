@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { Reporter } from 'gatsby'
 
-import { AllContentfulResult } from './types'
+import { AllContentResult } from './types'
 import { BlogItem } from '../models/blog'
 
 export const createBlogPages = async (
@@ -9,7 +9,7 @@ export const createBlogPages = async (
 	graphql: any,
 	reporter: Reporter
 ) => {
-	const result: AllContentfulResult<BlogItem, 'allBlogs'> = await graphql(`
+	const result: AllContentResult<BlogItem, 'allBlogs'> = await graphql(`
 		{
 			allBlogs: allContentfulBlogPost {
 				nodes {
@@ -26,7 +26,7 @@ export const createBlogPages = async (
 	}
 
 	// Blog Pages
-	result.data?.allBlogs.nodes.forEach(blog => {
+	result.data?.allBlogs.nodes.forEach(blog =>
 		createPage({
 			path: `/blog/${blog.slug}`,
 			component: resolve(`src/templates/blog.tsx`),
@@ -34,5 +34,5 @@ export const createBlogPages = async (
 				...blog,
 			},
 		})
-	})
+	)
 }
