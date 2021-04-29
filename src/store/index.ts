@@ -2,7 +2,7 @@ import { resetContext, getContext } from 'kea'
 
 resetContext({
 	createStore: {
-		paths: ['cart', 'prices'],
+		paths: ['cart', 'products'],
 	},
 	plugins: [],
 })

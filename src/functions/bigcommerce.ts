@@ -1,4 +1,6 @@
-require('dotenv').config()
+require('dotenv').config({
+	path: `.env.${process.env.NODE_ENV}`,
+})
 
 import axios, { AxiosResponse } from 'axios'
 import cookie from 'cookie'
@@ -12,23 +14,22 @@ import {
 } from '@netlify/functions'
 
 // only log in development mode
-const devModeLog = (str?: string, optionalParams?: any) =>
+const devModeLog = (str?: string, optionalParams: any | string = '') =>
 	process.env.NODE_ENV !== 'production' && console.log(str, optionalParams)
 
+// Get env var values we need to speak to the BC API
+const API_STORE_HASH = process.env.BIGCOMMERCE_STORE_HASH as string
+const API_CLIENT_ID = process.env.BIGCOMMERCE_CLIENT_ID as string
+const API_TOKEN = process.env.BIGCOMMERCE_ACCESS_TOKEN as string
+const API_SECRET = process.env.BIGCOMMERCE_CLIENT_SECRET as string
+const CORS_ORIGIN = process.env.CORS_ORIGIN as string
+
 export const handler: Handler = (event, context, callback) => {
-	devModeLog(' ')
-	devModeLog(' ')
 	devModeLog(' ')
 	devModeLog('-----------------------')
 	devModeLog('----- New Request -----')
 	devModeLog('-----------------------')
 
-	// Get env var values we need to speak to the BC API
-	const API_STORE_HASH = process.env.BIGCOMMERCE_STORE_HASH as string
-	const API_CLIENT_ID = process.env.BIGCOMMERCE_CLIENT_ID as string
-	const API_TOKEN = process.env.BIGCOMMERCE_ACCESS_TOKEN as string
-	const API_SECRET = process.env.BIGCOMMERCE_CLIENT_SECRET as string
-	const CORS_ORIGIN = process.env.CORS_ORIGIN as string
 	// Set up headers
 	const REQUEST_HEADERS = {
 		'X-Auth-Client': API_CLIENT_ID,
@@ -88,10 +89,10 @@ export const handler: Handler = (event, context, callback) => {
 			'(in setCookieHeader function) ENDPOINT_QUERY_STRING: ',
 			ENDPOINT_QUERY_STRING
 		)
-		// devModeLog('(in setCookieHeader function) response: ', response)
+		//devModeLog('(in setCookieHeader function) response: ', response)
 
-		const statusCode = response.status
-		const body = response.data
+		const statusCode = response?.status
+		const body = response?.data
 
 		if (ENDPOINT_QUERY_STRING === 'carts' && statusCode === 404) {
 			cookieHeader = {
@@ -126,8 +127,12 @@ export const handler: Handler = (event, context, callback) => {
 
 	// Process POST
 	const post = (body: string) => {
+		const url = constructURL()
+		devModeLog('- post url: ', url)
+		devModeLog('- post body: ', body)
+
 		axios
-			.post(constructURL(), body, { headers: REQUEST_HEADERS })
+			.post(url, body, { headers: REQUEST_HEADERS })
 			.then(response => {
 				const cookieHeader = setCookieHeader('response', response)
 
@@ -145,14 +150,18 @@ export const handler: Handler = (event, context, callback) => {
 
 	// Process GET
 	const get = () => {
+		const url = constructURL()
+		devModeLog('- get url: ', url)
 		axios
-			.get(constructURL(), { headers: REQUEST_HEADERS })
+			.get(url, { headers: REQUEST_HEADERS })
 			.then(response => {
 				const cookieHeader = setCookieHeader('response', response)
 
 				pass(response, cookieHeader)
 			})
 			.catch(err => {
+				//devModeLog('- get error: -')
+				//devModeLog(err)
 				const cookieHeader = setCookieHeader('error', err.response)
 
 				pass(err.response, cookieHeader)
@@ -185,8 +194,10 @@ export const handler: Handler = (event, context, callback) => {
 
 	// Process DELETE
 	const del = () => {
+		const url = constructURL()
+		devModeLog('- delete url: ', url)
 		axios
-			.delete(constructURL(), { headers: REQUEST_HEADERS })
+			.delete(url, { headers: REQUEST_HEADERS })
 			.then(response => {
 				pass(response)
 			})

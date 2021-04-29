@@ -10,13 +10,15 @@ import { BCProductItem } from '../../models/product'
 import { BCListItem } from '../../models/cart'
 
 import { cartLogic } from '../../logic/cart'
+import { productsLogic } from '../../logic/products'
 
 type Props = AllContentResult<BCProductItem, 'products'>
 
 const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
 	const { cart } = useValues(cartLogic)
 	const { addToCart, removeItemFromCart } = useActions(cartLogic)
-	const products = data?.products.nodes ?? []
+	const { products } = useValues(productsLogic)
+	const items = data?.products.nodes ?? []
 
 	const getLineItem = (
 		sku: string,
@@ -35,7 +37,7 @@ const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
 		<Layout>
 			<SEO title="Our Products" />
 			<h1>Our Awesome Products</h1>
-			{products.map(
+			{items.map(
 				({
 					base_variant_id,
 					bigcommerce_id,
@@ -67,27 +69,23 @@ const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
 								<span>${calculated_price}</span>
 							</p>
 							<div className="mb-6" style={{ height: '42px' }}>
-								{cart && (
-									<p>
-										{lineItem ? (
-											<span
-												className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
-												onClick={() => removeItemFromCart(lineItem.id)}
-											>
-												Remove
-											</span>
-										) : (
-											<span
-												className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
-												onClick={() =>
-													addToCart(bigcommerce_id, base_variant_id)
-												}
-											>
-												Add to Cart
-											</span>
-										)}
-									</p>
-								)}
+								<p>
+									{lineItem ? (
+										<span
+											className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
+											onClick={() => removeItemFromCart(lineItem.id)}
+										>
+											Remove
+										</span>
+									) : (
+										<span
+											className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
+											onClick={() => addToCart(bigcommerce_id, base_variant_id)}
+										>
+											Add to Cart
+										</span>
+									)}
+								</p>
 							</div>
 						</div>
 					)

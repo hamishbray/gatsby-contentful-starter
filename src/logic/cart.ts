@@ -3,7 +3,7 @@ import { kea, MakeLogicType } from 'kea'
 import { BCCart } from '../models/cart'
 
 interface Values {
-	cart?: BCCart | null
+	cart: BCCart | null
 	cartLoading: boolean
 	cartError?: string
 }
@@ -20,7 +20,7 @@ interface Actions {
 		itemId: string,
 		updatedItemData: any
 	) => { itemId: string; updatedItemData: any }
-	setCart: (cart?: BCCart) => { cart: BCCart | undefined }
+	setCart: (cart: BCCart | null) => { cart: BCCart | null }
 	setCartError: (error: string) => { error: string }
 }
 
@@ -73,7 +73,7 @@ export const cartLogic = kea<CartLogicType>({
 		],
 	},
 	events: ({ actions }) => ({
-		afterMount: () => actions.fetchCart(),
+		afterMount: () => typeof window !== 'undefined' && actions.fetchCart(),
 	}),
 	listeners: ({ actions }) => ({
 		fetchCart: async () => {
@@ -86,10 +86,13 @@ export const cartLogic = kea<CartLogicType>({
 						mode: 'same-origin',
 					}
 				)
-				console.log('got result back from bigcommerce lambda function')
 				const response = await result.json()
-				if (response.status === 200) actions.setCart(response.data)
-				else actions.setCartError(response.message)
+				console.log(
+					'got result back from bigcommerce lambda function',
+					response
+				)
+				if (result.status === 200) actions.setCart(response.data)
+				else actions.setCartError(response)
 			} catch (error) {
 				console.error('Error fetching cart: ', error)
 				actions.setCartError(error)
@@ -120,6 +123,7 @@ export const cartLogic = kea<CartLogicType>({
 				}
 
 				const response = await result.json()
+				console.log('add to cart response: ', response)
 				actions.setCart(response.data)
 			} catch (error) {
 				console.error('Error adding item to cart: ', error)
@@ -138,7 +142,7 @@ export const cartLogic = kea<CartLogicType>({
 				)
 
 				if (result.status === 204) {
-					actions.setCart(undefined)
+					actions.setCart(null)
 					return
 				}
 

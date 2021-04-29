@@ -6,7 +6,7 @@ export type BCListItem = {
 	name: string
 	url: string
 	quantity: number
-	is_taxable: boolean
+	taxable: boolean
 	image_url: string
 }
 
