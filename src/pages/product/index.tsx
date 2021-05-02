@@ -4,6 +4,7 @@ import { useActions, useValues } from 'kea'
 
 import Layout from '../../components/layout'
 import SEO from '../../components/seo'
+import LoadingButton from '../../components/loadingButton'
 
 import { AllContentResult } from '../../node-utils/types'
 import { BCProductItem } from '../../models/product'
@@ -15,10 +16,13 @@ import { productsLogic } from '../../logic/products'
 type Props = AllContentResult<BCProductItem, 'products'>
 
 const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
-	const { cart } = useValues(cartLogic)
+	const { cart, cartLoading } = useValues(cartLogic)
 	const { addToCart, removeItemFromCart } = useActions(cartLogic)
 	const { products } = useValues(productsLogic)
 	const items = data?.products.nodes ?? []
+
+	const buttonClasses =
+		'cursor-pointer inline-flex items-center px-4 py-2 mt-4 border-2 border-black rounded hover:border-gray-500 hover:text-black'
 
 	const getLineItem = (
 		sku: string,
@@ -72,14 +76,14 @@ const ProductsLandingPage: React.FC<Props> = ({ data }: Props) => {
 								<p>
 									{lineItem ? (
 										<span
-											className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
+											className={buttonClasses}
 											onClick={() => removeItemFromCart(lineItem.id)}
 										>
 											Remove
 										</span>
 									) : (
 										<span
-											className="inline-block px-4 py-2 font-bold border border-black cursor-pointer"
+											className={buttonClasses}
 											onClick={() => addToCart(bigcommerce_id, base_variant_id)}
 										>
 											Add to Cart
@@ -102,7 +106,7 @@ export default ProductsLandingPage
 
 export const query = graphql`
 	{
-		products: allBigCommerceProduct {
+		products: allBigCommerceProduct(filter: { type: { eq: "digital" } }) {
 			nodes {
 				availability
 				base_variant_id

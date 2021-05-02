@@ -117,6 +117,7 @@ export const cartLogic = kea<CartLogicType>({
 						}),
 					}
 				)
+				console.log('add to cart result: ', result)
 
 				if (result.status === 404 && !isRetry) {
 					// Recreate a cart if it was destroyed
@@ -129,7 +130,7 @@ export const cartLogic = kea<CartLogicType>({
 
 				const response = await result.json()
 				console.log('add to cart response: ', response)
-				actions.setCart(response.data)
+				actions.setCart(response?.data ?? null)
 			} catch (error) {
 				console.error('Error adding item to cart: ', error)
 				actions.setCartError(error)

@@ -1,22 +1,27 @@
 import React from 'react'
 
 type Props = {
+	buttonType?: 'submit' | 'button' | 'reset' | undefined
 	defaultLabel: string
 	loadingLabel: string
 	isLoading: boolean
+	onClick?: () => void
 }
 
 const LoadingButton: React.FC<Props> = ({
+	buttonType = 'submit',
 	defaultLabel,
 	loadingLabel,
 	isLoading,
+	onClick,
 }: Props) => (
 	<button
-		type="submit"
+		type={buttonType}
 		className={`inline-flex items-center px-4 py-2 mt-6 border-2 border-black rounded hover:border-gray-500 hover:text-black ${
 			isLoading && 'cursor-not-allowed'
 		}`}
 		disabled={isLoading}
+		{...(onClick && { onClick })}
 	>
 		{isLoading ? (
 			<>
