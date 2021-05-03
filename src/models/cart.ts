@@ -8,6 +8,10 @@ export type BCListItem = {
 	quantity: number
 	taxable: boolean
 	image_url: string
+	discount_amount: number
+	coupons_amount: number
+	list_price: number
+	sale_price: number
 }
 
 type BCCustomItem = {
@@ -56,6 +60,12 @@ type BCLineItems = {
 	custom_items: BCCustomItem[]
 }
 
+type BCRedirectUrls = {
+	cart_url: string
+	checkout_url: string
+	embedded_checkout_url: string
+}
+
 export interface BCCart {
 	id: string
 	parent_id: string
@@ -75,4 +85,5 @@ export interface BCCart {
 	updated_time: string
 	channel_id: number
 	locale: string
+	redirect_urls: BCRedirectUrls
 }
