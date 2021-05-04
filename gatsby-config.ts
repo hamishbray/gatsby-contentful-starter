@@ -54,32 +54,32 @@ const config: GatsbyConfig = {
 				icon: 'src/images/heat.png', // This path is relative to the root of the site.
 			},
 		},
-		// {
-		// 	resolve: `gatsby-source-contentful`,
-		// 	options: {
-		// 		spaceId: process.env.CONTENTFUL_SPACE_ID,
-		// 		accessToken:
-		// 			process.env.CONTENTFUL_ACCESS_TOKEN ||
-		// 			process.env.CONTENTFUL_DELIVERY_TOKEN,
-		// 	},
-		// },
-		// {
-		// 	resolve: `gatsby-plugin-netlify-identity`,
-		// 	options: {
-		// 		url: process.env.NETLIFY_IDENTITY_URL,
-		// 	},
-		// },
-		// {
-		// 	resolve: `gatsby-plugin-algolia`,
-		// 	options: {
-		// 		appId: process.env.GATSBY_ALGOLIA_APP_ID,
-		// 		apiKey: process.env.ALGOLIA_API_KEY,
-		// 		indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME,
-		// 		queries,
-		// 		enablePartialUpdates: true,
-		// 		matchFields: ['modified'],
-		// 	},
-		// },
+		{
+			resolve: `gatsby-source-contentful`,
+			options: {
+				spaceId: process.env.CONTENTFUL_SPACE_ID,
+				accessToken:
+					process.env.CONTENTFUL_ACCESS_TOKEN ||
+					process.env.CONTENTFUL_DELIVERY_TOKEN,
+			},
+		},
+		{
+			resolve: `gatsby-plugin-netlify-identity`,
+			options: {
+				url: process.env.NETLIFY_IDENTITY_URL,
+			},
+		},
+		{
+			resolve: `gatsby-plugin-algolia`,
+			options: {
+				appId: process.env.GATSBY_ALGOLIA_APP_ID,
+				apiKey: process.env.ALGOLIA_API_KEY,
+				indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME,
+				queries,
+				enablePartialUpdates: true,
+				matchFields: ['modified'],
+			},
+		},
 		`gatsby-plugin-offline`,
 	],
 }
