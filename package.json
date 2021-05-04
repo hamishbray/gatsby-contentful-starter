@@ -32,6 +32,7 @@
     "sal.js": "^0.8.4"
   },
   "devDependencies": {
+    "@azure/functions": "^1.2.3",
     "@babel/plugin-transform-object-assign": "^7.12.13",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
