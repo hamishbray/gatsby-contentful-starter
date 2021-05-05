@@ -8,9 +8,9 @@ import SearchBox from '../components/searchBox'
 const IndexPage: React.FC = () => {
 	useEffect(() => {
 		const SayHello = async () => {
-			const response = await fetch('/api/message')
-			const message = await response.json()
-			console.log(message)
+			const result = await fetch('/api/message?name=Fred')
+			const { text } = await result.json()
+			console.log(text)
 		}
 		SayHello()
 	}, [])
