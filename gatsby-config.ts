@@ -12,9 +12,9 @@ const config: GatsbyConfig = {
 		app.use(
 			'/.netlify/functions/',
 			createProxyMiddleware({
-				target: 'http://localhost:9000',
+				target: 'http://localhost:7071',
 				pathRewrite: {
-					'/.netlify/functions/': '',
+					'/.netlify/functions/': '/api/',
 				},
 			})
 		)

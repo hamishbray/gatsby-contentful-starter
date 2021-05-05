@@ -8,9 +8,9 @@ import SearchBox from '../components/searchBox'
 const IndexPage: React.FC = () => {
 	useEffect(() => {
 		const SayHello = async () => {
-			const response = await fetch('/.netlify/functions/hello')
-			const message = await response.json()
-			console.log(message)
+			const response = await fetch('/.netlify/functions/message')
+			const { text } = await response.json()
+			console.log(text)
 		}
 		SayHello()
 	}, [])
