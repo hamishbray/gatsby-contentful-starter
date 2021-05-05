@@ -72,13 +72,9 @@
   "license": "0BSD",
   "scripts": {
     "build": "npm run clean && gatsby build",
-    "build:app": "npm run clean && gatsby build",
-    "build:lambda": "netlify-lambda build src/functions",
     "develop": "gatsby clean && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "run-p start:**",
-    "start:app": "npm run develop",
-    "start:lambda": "netlify-lambda serve src/functions",
+    "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
