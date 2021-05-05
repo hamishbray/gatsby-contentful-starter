@@ -9,8 +9,8 @@ const IndexPage: React.FC = () => {
 	useEffect(() => {
 		const SayHello = async () => {
 			const response = await fetch('/api/message')
-			const { text } = await response.json()
-			console.log(text)
+			const message = await response.json()
+			console.log(message)
 		}
 		SayHello()
 	}, [])
