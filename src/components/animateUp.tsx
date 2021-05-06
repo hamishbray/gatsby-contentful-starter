@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react'
 import sal from 'sal.js'
 
-declare global {
-	interface Window {
-		salInitialised: boolean
-	}
-}
-
 type Props = {
 	children: React.FC<any>
 	delay: number
