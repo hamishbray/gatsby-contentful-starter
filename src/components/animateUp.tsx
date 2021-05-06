@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react'
 import sal from 'sal.js'
 
-declare global {
-	interface Window {
-		salInitialised: boolean
-	}
-}
-
 type Props = {
 	children: React.FC<any>
 	delay: number
@@ -17,11 +11,7 @@ const AnimateUp: React.FC<any> = ({
 	delay = 200,
 }: Props): JSX.Element => {
 	useEffect(() => {
-		// initialise sal only once
-		if (typeof window !== 'undefined' && !window.salInitialised) {
-			sal()
-			window.salInitialised = true
-		}
+		sal()
 	}, [])
 
 	return (
