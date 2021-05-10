@@ -10,12 +10,9 @@ import { queries } from './src/node-utils/algolia-queries'
 const config: GatsbyConfig = {
 	developMiddleware: (app: any) => {
 		app.use(
-			'/.netlify/functions/',
+			'/api/',
 			createProxyMiddleware({
-				target: 'http://localhost:9000',
-				pathRewrite: {
-					'/.netlify/functions/': '',
-				},
+				target: 'http://localhost:7071',
 			})
 		)
 	},
