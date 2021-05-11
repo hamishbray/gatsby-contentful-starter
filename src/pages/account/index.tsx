@@ -6,15 +6,15 @@ import PrivateRoute from '../../components/privateRoute'
 import Login from './login'
 import Profile from './profile'
 import SignUp from './signup'
-import RecoverPassword from './forgottenPassword'
+import RecoverPassword from './recoverPassword'
 
 const Account: React.FC = () => (
 	<Layout>
-		<Router>
-			<PrivateRoute path="/account/profile" component={Profile} />
-			<Login path="/account/login" />
-			<SignUp path="/account/signup" />
-			<RecoverPassword path="/account/recover-password" />
+		<Router basepath="/account">
+			<PrivateRoute path="profile" component={Profile} />
+			<Login path="login" />
+			<SignUp path="signup" />
+			<RecoverPassword path="recover-password" />
 		</Router>
 	</Layout>
 )
