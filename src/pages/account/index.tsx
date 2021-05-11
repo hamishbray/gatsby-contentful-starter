@@ -3,10 +3,10 @@ import { Router } from '@reach/router'
 
 import Layout from '../../components/layout'
 import PrivateRoute from '../../components/privateRoute'
-import Login from './login'
-import Profile from './profile'
-import SignUp from './signup'
-import RecoverPassword from './recoverPassword'
+import Login from '../../components/login'
+import Profile from '../../components/profile'
+import SignUp from '../../components/signup'
+import RecoverPassword from '../../components/recoverPassword'
 
 const Account: React.FC = () => (
 	<Layout>

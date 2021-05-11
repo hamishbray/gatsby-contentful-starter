@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import { navigate } from '@reach/router'
 import { useIdentityContext } from 'react-netlify-identity-widget'
 
-import LoadingButton from '../../components/loadingButton'
+import LoadingButton from './loadingButton'
 
 const ForgottenPassword: React.FC<any> = () => {
 	const { requestPasswordRecovery } = useIdentityContext()

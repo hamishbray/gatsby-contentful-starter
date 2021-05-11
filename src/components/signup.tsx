@@ -3,32 +3,35 @@ import { Link } from 'gatsby'
 import { navigate } from '@reach/router'
 import { useIdentityContext } from 'react-netlify-identity-widget'
 
-import LoadingButton from '../../components/loadingButton'
+import LoadingButton from './loadingButton'
 
 const Login: React.FC<any> = () => {
-	const { loginUser } = useIdentityContext()
+	const { signupUser } = useIdentityContext()
 	const formRef = useRef<HTMLFormElement>(null!)
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		login()
+		signup()
 	}
 
-	const login = async () => {
+	const signup = async () => {
+		const name = formRef.current.username.value
 		const email = formRef.current.email.value
 		const password = formRef.current.password.value
 		setError(null)
 		setLoading(true)
 
 		try {
-			const user = await loginUser(email, password)
-			console.log('Success! Logged in user: ', user)
+			const user = await signupUser(email, password, {
+				full_name: name,
+			})
+			console.log('Success! Signed up user: ', user)
 			navigate('/account/profile')
 		} catch (error) {
-			setError(error.json?.error_description)
-			console.error('Error logging in user', error)
+			setError(error.message)
+			console.error('Error signing up user', error)
 		} finally {
 			setLoading(false)
 		}
@@ -37,10 +40,19 @@ const Login: React.FC<any> = () => {
 	return (
 		<section className="flex items-center justify-center">
 			<div className="max-w-full w-96">
-				<h1>Sign In</h1>
+				<h1>Sign Up</h1>
 				<form ref={formRef} onSubmit={onSubmit}>
 					<div>
 						<label className="block">
+							<span>Name</span>
+							<input
+								type="text"
+								name="username"
+								className="block w-full mt-1 form-input"
+								placeholder="Enter your name"
+							/>
+						</label>
+						<label className="block mt-4">
 							<span>Email</span>
 							<input
 								type="email"
@@ -49,7 +61,7 @@ const Login: React.FC<any> = () => {
 								placeholder="Enter your email"
 							/>
 						</label>
-						<label className="relative block mt-4">
+						<label className="block mt-4">
 							<span>Password</span>
 							<input
 								type="password"
@@ -57,16 +69,11 @@ const Login: React.FC<any> = () => {
 								className="block w-full mt-1 form-input"
 								placeholder="Enter your password"
 							></input>
-							<span className="absolute right-0 text-sm -bottom-6">
-								<Link to={'/account/recover-password'}>
-									Forgotten password?
-								</Link>
-							</span>
 						</label>
 					</div>
 					<LoadingButton
 						defaultLabel="Submit"
-						loadingLabel="Logging In"
+						loadingLabel="Signing Up"
 						isLoading={loading}
 					/>
 					{error && (
@@ -77,7 +84,7 @@ const Login: React.FC<any> = () => {
 				</form>
 				<div className="mt-4">
 					<p>
-						Not a member? <Link to={'/account/signup'}>Sign Up</Link>
+						Already a member? <Link to={'/account/login'}>Sign In</Link>
 					</p>
 				</div>
 			</div>

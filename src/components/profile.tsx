@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIdentityContext } from 'react-netlify-identity-widget'
 
-import ClientOnly from '../../components/clientOnly'
+import ClientOnly from './clientOnly'
 
 const Profile: React.FC = () => {
 	const { user } = useIdentityContext()
