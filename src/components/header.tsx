@@ -30,15 +30,13 @@ const Header: React.FC<Props> = ({ siteTitle }: Props) => {
 						{siteTitle}
 					</Link>
 				</div>
-				<nav className="pl-4 text-white md:w-auto h-11">
-					<ClientOnly>
-						<button
-							className="inline px-4 py-2 border-2 border-white rounded hover:border-black hover:text-black"
-							onClick={login}
-						>
-							{isLoggedIn ? `Hello ${name}, Log out here!` : `Log In`}
-						</button>
-					</ClientOnly>
+				<nav className="pl-4 text-white md:w-auto md:min-w- h-11">
+					<button
+						className="inline px-4 py-2 border-2 border-white rounded hover:border-black hover:text-black"
+						onClick={login}
+					>
+						{isLoggedIn ? `Log out` : `Log In`}
+					</button>
 				</nav>
 			</div>
 		</header>
