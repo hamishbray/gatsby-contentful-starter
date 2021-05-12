@@ -21,7 +21,7 @@ const Bold = ({ children }: { children: ReactNode }) => (
 )
 
 const Code = ({ children }: { children: ReactNode }) => (
-	<pre className="my-2">
+	<pre className="my-2 whitespace-pre-wrap">
 		<code>{children}</code>
 	</pre>
 )
