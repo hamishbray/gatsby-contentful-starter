@@ -70,10 +70,10 @@ const SearchPage: React.FC = () => {
 				<SearchBox />
 				<div className="flex flex-wrap md:flex-nowrap">
 					<div className="pr-8 mt-8">
-						<h3>Refine</h3>
-						<h5>Type</h5>
+						<h2 className="pt-0">Refine</h2>
+						<h5 className="mt-2 mb-1 font-bold">Type</h5>
 						<RefinementList attribute="type" />
-						<h5>Tags</h5>
+						<h5 className="mt-2 mb-1 font-bold">Tags</h5>
 						<RefinementList attribute="tags" />
 					</div>
 					<div className="flex-grow">

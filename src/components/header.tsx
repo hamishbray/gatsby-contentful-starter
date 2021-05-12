@@ -18,7 +18,7 @@ const Header: React.FC<Props> = ({ siteTitle }: Props) => {
 		isLoggedIn ? logoutUser() : window.location.assign('/account/login')
 
 	return (
-		<header className="mb-6 bg-yellow-900">
+		<header className="mb-6 bg-blue-700">
 			<div className="flex max-w-screen-lg px-4 py-8 mx-auto">
 				<div className="flex flex-1 mr-3">
 					<img
@@ -30,7 +30,7 @@ const Header: React.FC<Props> = ({ siteTitle }: Props) => {
 						{siteTitle}
 					</Link>
 				</div>
-				<nav className="pl-4 text-white md:w-auto">
+				<nav className="pl-4 text-white md:w-auto h-11">
 					<ClientOnly>
 						<button
 							className="inline px-4 py-2 border-2 border-white rounded hover:border-black hover:text-black"
