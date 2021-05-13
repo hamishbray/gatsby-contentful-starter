@@ -4,8 +4,6 @@ import { useIdentityContext } from 'react-netlify-identity-widget'
 
 import logo from '../images/contentful-logo.svg'
 
-import ClientOnly from '../components/clientOnly'
-
 type Props = {
 	siteTitle: string
 }
