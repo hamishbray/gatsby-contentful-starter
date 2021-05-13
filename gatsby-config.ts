@@ -26,6 +26,7 @@ const config: GatsbyConfig = {
 	},
 	flags: {
 		FAST_DEV: true,
+		//PARALLEL_SOURCING: true,
 	},
 	plugins: [
 		'gatsby-plugin-postcss',
