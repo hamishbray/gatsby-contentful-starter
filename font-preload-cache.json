@@ -1,0 +1,71 @@
+{
+	"timestamp": 1621753249870,
+	"hash": "131bc61be60dc641865d85881a79f5a8",
+	"assets": {
+		"/article/algolia-search-setup": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/article/gatsby-contentful-and-algolia": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/blog/automate-with-webhooks": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/blog/hello-world": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/blog/static-sites-are-great": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/dev-404-page/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/404.html": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/404/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/account/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/article/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/blog/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		},
+		"/search/": {
+			"/static/oxygen-latin-700-normal-952d29a100b1e79000a8a5ec821a79a6.woff2": true,
+			"/static/nunito-sans-latin-400-normal-0d4c40ade358c08c4ead1c75c178e97a.woff2": true,
+			"/static/nunito-sans-latin-700-normal-c04dce0cebce073d13effbaa261ced4a.woff2": true
+		}
+	}
+}

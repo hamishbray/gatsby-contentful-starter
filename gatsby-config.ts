@@ -39,8 +39,9 @@ const config: GatsbyConfig = {
 				path: `${__dirname}/src/images`,
 			},
 		},
+		'gatsby-plugin-preload-fonts',
 		'gatsby-plugin-image',
-		`gatsby-transformer-remark`,
+		'gatsby-transformer-remark',
 		'gatsby-transformer-sharp',
 		'gatsby-plugin-sharp',
 		{
@@ -56,7 +57,7 @@ const config: GatsbyConfig = {
 			},
 		},
 		{
-			resolve: `gatsby-source-contentful`,
+			resolve: 'gatsby-source-contentful',
 			options: {
 				spaceId: process.env.CONTENTFUL_SPACE_ID,
 				accessToken:
@@ -65,13 +66,13 @@ const config: GatsbyConfig = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-netlify-identity`,
+			resolve: 'gatsby-plugin-netlify-identity',
 			options: {
 				url: process.env.NETLIFY_IDENTITY_URL,
 			},
 		},
 		{
-			resolve: `gatsby-plugin-algolia`,
+			resolve: 'gatsby-plugin-algolia',
 			options: {
 				appId: process.env.GATSBY_ALGOLIA_APP_ID,
 				apiKey: process.env.ALGOLIA_API_KEY,
@@ -81,7 +82,7 @@ const config: GatsbyConfig = {
 				matchFields: ['modified'],
 			},
 		},
-		`gatsby-plugin-offline`,
+		'gatsby-plugin-offline',
 	],
 }
 

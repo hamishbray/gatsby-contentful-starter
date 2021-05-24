@@ -4,19 +4,19 @@
 
 @layer base {
 	h1 {
-		@apply mb-8 text-5xl;
+		@apply mb-8 text-5xl font-bold font-oxygen;
 	}
 
 	h2 {
-		@apply py-4 text-2xl;
+		@apply py-4 text-2xl font-bold font-oxygen;
 	}
 
 	h3 {
-		@apply py-2 text-lg font-bold;
+		@apply py-2 text-lg font-bold font-oxygen;
 	}
 
 	h4 {
-		@apply py-2 text-lg;
+		@apply py-2 text-lg font-oxygen;
 	}
 
 	p {
