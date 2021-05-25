@@ -79,9 +79,11 @@ export const searchStateFromUrl = (location: WindowLocation): SearchState => {
 	// const category = getCategoryName(
 	//   (pathnameMatches && pathnameMatches[1]) || ''
 	// )
-	const { query = '', page = 1, tags = [] } = qs.parse(
-		location?.search.slice(1) ?? ''
-	)
+	const {
+		query = '',
+		page = 1,
+		tags = [],
+	} = qs.parse(location?.search.slice(1) ?? '')
 
 	// `qs` does not return an array when there's a single value.
 	const allTags = Array.isArray(tags) ? tags : [tags].filter(Boolean)
@@ -97,5 +99,3 @@ export const searchStateFromUrl = (location: WindowLocation): SearchState => {
 
 export const searchStateToUrl = (search: SearchState): string =>
 	search ? createURL(search) : ''
-
-export const isClient = typeof window !== 'undefined'

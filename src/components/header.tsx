@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import { useIdentityContext } from 'react-netlify-identity-widget'
+
+import { useScrollPosition } from '../hooks/useScrollPosition'
 
 import logo from '../images/contentful-logo.svg'
 
@@ -9,22 +11,37 @@ type Props = {
 }
 
 const Header: React.FC<Props> = ({ siteTitle }: Props) => {
-	const { user, isLoggedIn, logoutUser } = useIdentityContext()
-	const name = user?.user_metadata?.full_name ?? 'Mr Nobody'
+	const [showHeader, setShowHeader] = useState(true)
+	const { isLoggedIn, logoutUser } = useIdentityContext()
 
 	const login = () =>
 		isLoggedIn ? logoutUser() : window.location.assign('/account/login')
 
+	useScrollPosition({
+		scrollEffect: ({ prevPosition, currentPosition }) => {
+			if (currentPosition.y === prevPosition.y) return
+
+			const show = currentPosition.y < prevPosition.y
+			show !== showHeader && setShowHeader(show)
+		},
+	})
+
+	const headerClasses = showHeader
+		? 'ease-out delay-200'
+		: 'ease-in -translate-y-full'
+
 	return (
-		<header className="mb-6 bg-blue-700">
-			<div className="flex max-w-screen-lg px-4 py-8 mx-auto">
+		<header
+			className={`fixed top-0 z-10 w-full h-20 bg-blue-700 transition-all duration-300 transform ${headerClasses}`}
+		>
+			<div className="flex items-center h-full max-w-screen-lg px-4 py-8 mx-auto">
 				<div className="flex flex-1 mr-3">
 					<img
-						className="h-10 mt-1 mr-3 md:mt-auto"
+						className="h-8 mt-1 mr-3 lg:h-10 md:mt-auto"
 						src={logo}
 						alt="Contentful Logo"
 					/>
-					<Link to="/" className="text-4xl text-white no-underline">
+					<Link to="/" className="text-2xl text-white no-underline lg:text-4xl">
 						{siteTitle}
 					</Link>
 				</div>

@@ -18,13 +18,13 @@ import Hit from '../../components/hit'
 import {
 	DEBOUNCE_TIME,
 	INDEX_NAME as indexName,
-	isClient,
 	createURL,
 	getSearchClient,
 	SearchState,
 	searchStateFromUrl,
 	searchStateToUrl,
 } from '../../utils/search'
+import { isClient } from '../../utils/common'
 
 const SearchPage: React.FC = () => {
 	const location = useLocation()
