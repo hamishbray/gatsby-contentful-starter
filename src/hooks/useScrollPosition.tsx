@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { isClient } from '../utils/common'
 
@@ -41,6 +41,9 @@ export const useScrollPosition = ({
 
 		window.addEventListener('scroll', handleScroll)
 
-		return () => window.removeEventListener('scroll', handleScroll)
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+			timeout.current && clearTimeout(timeout.current)
+		}
 	})
 }
