@@ -6,7 +6,11 @@ module.exports = {
 			oxygen: ['Oxygen', 'sans-serif'],
 			sans: ['Nunito Sans', 'sans-serif'],
 		},
-		extend: {},
+		extend: {
+			zIndex: {
+				'-1': '-1',
+			},
+		},
 	},
 	variants: {
 		extend: {},

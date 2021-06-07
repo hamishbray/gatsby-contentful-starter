@@ -5,7 +5,7 @@ export type ContentfulItem<T> = T & {
 	}
 }
 
-type AllContentfulItem<T, U extends string> = {
+export type AllContentfulItem<T, U extends string> = {
 	[u in U]: {
 		nodes: ContentfulItem<T>[]
 	}
@@ -16,6 +16,11 @@ export type ContentfulResult<T, N extends string> = {
 	data?: {
 		[n in N]: ContentfulItem<T>
 	}
+}
+
+export type GenericContentfulResult<T> = {
+	errors?: any
+	data?: T
 }
 
 export type AllContentfulResult<T, U extends string> = {

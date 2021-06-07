@@ -1,0 +1,36 @@
+.heading {
+	position: relative;
+	width: 600px;
+	height: 400px;
+	border: 1px solid #000;
+	background: linear-gradient(90deg, #fff 0, #000 0, #000 200px, #fff 200px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	animation-name: slide;
+	animation-duration: 2s;
+	animation-delay: 4s;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
+}
+
+.heading h1 {
+	z-index: 1;
+}
+
+.box {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 200px;
+	background-color: #000;
+}
+
+@keyframes slide {
+	0% {
+		background-position-x: 0;
+	}
+	100% {
+		background-position-x: 398px;
+	}
+}

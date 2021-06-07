@@ -6,6 +6,7 @@ import { BlogItem } from './blog'
 export const CONTENTFUL_ARTICLE_TYPENAME = 'ContentfulArticle'
 export const CONTENTFUL_BLOGPOST_TYPENAME = 'ContentfulBlogPost'
 export const CONTENTFUL_PERSON_TYPENAME = 'ContentfulPerson'
+export const CONTENTFUL_IMAGE_TYPENAME = 'ContentfulImage'
 
 export type AssetFile = {
 	contentType: string
@@ -50,6 +51,8 @@ export const getType = (typeName: string): string => {
 			return 'blog'
 		case CONTENTFUL_PERSON_TYPENAME:
 			return 'person'
+		case CONTENTFUL_IMAGE_TYPENAME:
+			return 'image'
 		default:
 			return ''
 	}
