@@ -35,6 +35,7 @@ const Cards: React.FC<Props> = ({ cards }: Props) => (
 							{image && <GatsbyImage alt={card.title} image={image} />}
 							{summary && (
 								<div
+									className="mt-2"
 									dangerouslySetInnerHTML={{
 										__html: summary.childMarkdownRemark.html,
 									}}
