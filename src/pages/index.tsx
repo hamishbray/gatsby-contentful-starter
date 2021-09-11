@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link } from 'gatsby'
+import { Personalize, Variant } from '@ninetailed/client-sdk-react'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import Headline from '../components/headline'
 import SearchBox from '../components/searchBox'
 
 const IndexPage: React.FC = () => {
@@ -15,10 +17,25 @@ const IndexPage: React.FC = () => {
 		SayHello()
 	}, [])
 
+	const variants: Variant<{ text: string }>[] = [
+		{
+			id: 'returning-user',
+			audience: {
+				id: 'Jc2qq47Qvlrllw9QMYHlq',
+			},
+			text: 'Welcome Back',
+		},
+	]
+
 	return (
 		<Layout>
 			<SEO title="Home" />
-			<h1>Welcome!</h1>
+			<Personalize
+				id="headline"
+				component={Headline}
+				variants={variants}
+				text="Welcome"
+			/>
 			<div className="mb-8">
 				<SearchBox />
 			</div>

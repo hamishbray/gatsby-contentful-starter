@@ -5,6 +5,9 @@
   "version": "0.1.0",
   "author": "Hamish Bray <hamish.bray@gmail.com>",
   "dependencies": {
+    "@ninetailed/client-sdk-gatsby-contentful": "^0.7.0",
+    "@ninetailed/client-sdk-react": "^1.1.0-alpha.1",
+    "@ninetailed/gatsby-plugin-ninetailed": "^1.1.0-alpha.2",
     "algoliasearch": "^4.9.2",
     "contentful": "^8.4.0",
     "contentful-management": "^7.24.0",

@@ -82,6 +82,12 @@ const config: GatsbyConfig = {
 				matchFields: ['modified'],
 			},
 		},
+		{
+			resolve: '@ninetailed/gatsby-plugin-ninetailed',
+			options: {
+				apiKey: '48274330-cbbd-45f4-a37b-1802ac5c63fc',
+			},
+		},
 		'gatsby-plugin-offline',
 	],
 }
