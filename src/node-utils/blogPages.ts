@@ -33,6 +33,7 @@ export const createBlogPages = async (
 			context: {
 				...blog,
 			},
+			defer: true,
 		})
 	})
 }
